@@ -1,4 +1,13 @@
-<p align="center"><img src="https://raw.githubusercontent.com/BasantAwad/BasantAwad/main/assets/profile-terminal.svg" alt="Animated terminal profile for Basant Awad Mohamed" width="100%" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/BasantAwad/BasantAwad/main/assets/introduction-banner.svg" alt="Terminal-inspired project banner" width="100%" /></p>
+
+<!-- terminal-badges -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Portfolio-111827?style=flat-square&logo=vercel&logoColor=white" alt="Portfolio" />
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=111827" alt="React" />
+  <img src="https://img.shields.io/badge/Motion-8B5CF6?style=flat-square&logo=framer&logoColor=white" alt="Motion" />
+</p>
+
+<p align="center"><img src="https://raw.githubusercontent.com/BasantAwad/BasantAwad/main/assets/introduction-banner.svg" alt="Animated terminal profile for Basant Awad Mohamed" width="100%" /></p>
 
 # Nocturne Botanica — Basant Awad Mohamed
 
