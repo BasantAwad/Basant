@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/BasantAwad/BasantAwad/main/assets/basant-terminal-banner.png" alt="Terminal-inspired project banner" width="100%" />
+</p>
+
 # Nocturne Botanica — Basant Awad Mohamed
 
 A cinematic, single-page portfolio for a backend software engineer, built with React, TypeScript, and Vite. The experience combines a midnight botanical visual system with scroll-driven SVG growth, responsive layout, and accessible motion behavior.
