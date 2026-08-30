@@ -27,8 +27,10 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Build
-        run: npm run build
+      - name: Build (GitHub Pages — base path /Basant/)
+        run: VITE_DEPLOY_TARGET=github-pages npm run build
+      - name: Copy index.html → 404.html (SPA fallback)
+        run: cp dist/index.html dist/404.html
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
