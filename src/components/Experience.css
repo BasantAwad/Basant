@@ -1,0 +1,221 @@
+.experience {
+  position: relative;
+  padding: var(--space-20) 0 var(--space-20);
+  overflow: hidden;
+}
+
+.experience__botany {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.experience__header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--space-12);
+  text-align: center;
+}
+
+.experience__heading {
+  text-align: center;
+  margin-top: var(--space-4);
+}
+
+.experience__intro {
+  text-align: center;
+  max-width: 560px;
+  margin-inline: auto;
+  color: var(--color-ivory-dim);
+  font-size: 0.95rem;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin-inline: auto;
+  padding: 0 var(--gutter);
+  margin-top: var(--space-8);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse 200px 400px at 50% 0%, rgba(138, 58, 82, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.timeline-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-10);
+  padding-left: var(--space-4);
+}
+
+.timeline-entry__marker {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  z-index: 2;
+}
+
+.timeline-entry__marker::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-fuchsia);
+  border: 2px solid var(--color-bg);
+  box-shadow: 0 0 0 3px rgba(138, 58, 82, 0.2);
+  flex-shrink: 0;
+}
+
+.timeline-entry--teaching .timeline-entry__marker::before {
+  background: var(--color-sage);
+  box-shadow: 0 0 0 3px rgba(106, 122, 106, 0.2);
+}
+
+.timeline-entry--leadership .timeline-entry__marker::before {
+  background: var(--color-warm-accent);
+  box-shadow: 0 0 0 3px rgba(200, 168, 120, 0.2);
+}
+
+.timeline-entry__body {
+  background: rgba(10, 14, 18, 0.65);
+  border: 1px solid rgba(26, 35, 32, 0.5);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-6);
+  transition: border-color 240ms var(--ease-out), background-color 240ms var(--ease-out);
+}
+.timeline-entry__body:hover {
+  border-color: rgba(138, 58, 82, 0.35);
+  background: rgba(16, 22, 26, 0.75);
+}
+
+.timeline-entry__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+  align-items: center;
+}
+
+.timeline-entry__type {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-fuchsia);
+  border: 1px solid rgba(138, 58, 82, 0.35);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: rgba(42, 26, 36, 0.2);
+}
+
+.timeline-entry__species {
+  font-size: 0.62rem;
+  color: var(--color-sage);
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+}
+
+.timeline-entry__role {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--color-ivory);
+  margin-bottom: var(--space-1);
+  line-height: 1.2;
+}
+
+.timeline-entry__org {
+  font-size: 0.95rem;
+  color: var(--color-ivory-dim);
+  margin-bottom: var(--space-1);
+}
+
+.timeline-entry__location {
+  font-size: 0.85rem;
+  color: var(--color-ivory-faint);
+  margin-bottom: var(--space-1);
+}
+
+.timeline-entry__dates {
+  font-size: 0.8rem;
+  color: var(--color-sage);
+  letter-spacing: 0.04em;
+  font-style: italic;
+  margin-bottom: var(--space-4);
+}
+
+.timeline-entry__milestones {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(26, 35, 32, 0.5);
+}
+
+.milestone {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-ivory-dim);
+}
+
+.milestone__challenge,
+.milestone__solution,
+.milestone__outcome {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.milestone__text {
+  flex: 1;
+}
+
+.milestone__challenge .specimen-label { color: var(--color-crimson); }
+.milestone__solution .specimen-label { color: var(--color-fuchsia); }
+.milestone__outcome .specimen-label { color: var(--color-ivory-faint); }
+
+.milestone__challenge .milestone__text { color: var(--color-oxblood); }
+.milestone__solution .milestone__text { color: var(--color-ivory-dim); }
+.milestone__outcome .milestone__text { color: var(--color-ivory); font-weight: 400; }
+
+.experience__footer {
+  margin-top: var(--space-12);
+  text-align: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--color-ivory-faint);
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .timeline-entry {
+    grid-template-columns: 44px 1fr;
+    gap: var(--space-4);
+  }
+  .timeline-entry__role {
+    font-size: 1.35rem;
+  }
+}

@@ -1,0 +1,192 @@
+.github-lab {
+  position: relative;
+  padding: var(--space-20) 0 var(--space-20);
+  overflow: hidden;
+}
+
+.github-lab__botany {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.github-lab__header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--space-12);
+  text-align: center;
+}
+
+.github-lab__heading {
+  text-align: center;
+  margin-top: var(--space-4);
+}
+
+.github-lab__intro {
+  text-align: center;
+  max-width: 600px;
+  margin-inline: auto;
+  color: var(--color-ivory-dim);
+  font-size: 0.95rem;
+  margin-top: var(--space-4);
+}
+
+.github-lab__stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ivory-faint);
+}
+
+.github-lab__total {
+  color: var(--color-sage);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+.github-lab__content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin-inline: auto;
+  padding: 0 var(--gutter);
+}
+
+.github-lab__group {
+  margin-bottom: var(--space-8);
+}
+
+.github-lab__group-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid rgba(26, 35, 32, 0.4);
+}
+
+.github-lab__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.repo-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(10, 14, 18, 0.5);
+  border: 1px solid rgba(26, 35, 32, 0.4);
+  border-radius: var(--radius-sm);
+  transition: border-color 200ms var(--ease-out), background-color 200ms var(--ease-out), transform 180ms var(--ease-out);
+}
+.repo-row:hover {
+  border-color: rgba(138, 58, 82, 0.35);
+  background: rgba(14, 20, 24, 0.6);
+  transform: translateX(2px);
+}
+.repo-row--highlight {
+  background: rgba(42, 26, 36, 0.25);
+  border-color: rgba(138, 58, 82, 0.3);
+}
+
+.repo-row__link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  color: var(--color-ivory-dim);
+  transition: color 200ms var(--ease-out);
+}
+.repo-row:hover .repo-row__link { color: var(--color-ivory); }
+.repo-row--highlight .repo-row__link { color: var(--color-ivory); }
+
+.repo-row__name {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--color-ivory);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.repo-row__lang {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-sage);
+  background: rgba(106, 122, 106, 0.15);
+  border: 1px solid rgba(106, 122, 106, 0.25);
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.repo-row__note {
+  font-size: 0.62rem;
+  font-style: italic;
+  color: var(--color-ivory-faint);
+  white-space: nowrap;
+}
+
+.repo-row__accent {
+  display: none;
+  font-size: 0.6rem;
+  color: var(--color-fuchsia);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .repo-row__accent { display: block; }
+}
+
+.github-lab__footer {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-10);
+  text-align: center;
+}
+
+.github-lab__view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-fuchsia);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid rgba(138, 58, 82, 0.35);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-sm);
+  background: rgba(42, 26, 36, 0.2);
+  transition: background-color 240ms var(--ease-out), border-color 240ms var(--ease-out), color 240ms var(--ease-out);
+}
+.github-lab__view-all:hover {
+  background: rgba(138, 58, 82, 0.2);
+  border-color: var(--color-fuchsia);
+  color: var(--color-ivory);
+}
+
+.github-lab__footer .coordinates {
+  margin-top: var(--space-4);
+  font-size: 0.6rem;
+  color: var(--color-ivory-faint);
+}

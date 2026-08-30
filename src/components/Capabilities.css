@@ -1,0 +1,105 @@
+.capabilities {
+  position: relative;
+  padding: var(--space-20) 0 var(--space-20);
+  overflow: hidden;
+}
+
+.capabilities__botany {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.capabilities__header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--space-12);
+  text-align: center;
+}
+
+.capabilities__heading {
+  text-align: center;
+  margin-top: var(--space-4);
+}
+
+.capabilities__intro {
+  text-align: center;
+  max-width: 600px;
+  margin-inline: auto;
+  color: var(--color-ivory-dim);
+  font-size: 0.95rem;
+}
+
+.capabilities__grid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: 900px;
+  margin-inline: auto;
+  padding: 0 var(--gutter);
+}
+
+.cap-cluster {
+  background: rgba(10, 14, 18, 0.5);
+  border: 1px solid rgba(26, 35, 32, 0.4);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  transition: border-color 240ms var(--ease-out), background-color 240ms var(--ease-out);
+}
+.cap-cluster:hover {
+  border-color: rgba(138, 58, 82, 0.35);
+  background: rgba(14, 20, 24, 0.6);
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.cap-cluster__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.cap-cluster__icon {
+  color: var(--color-fuchsia);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.cap-cluster__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+}
+
+.cap-chip {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-ivory-dim);
+  background: rgba(26, 35, 32, 0.5);
+  border: 1px solid rgba(26, 35, 32, 0.4);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: border-color 200ms var(--ease-out), color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+}
+.cap-chip:hover {
+  border-color: rgba(138, 58, 82, 0.4);
+  color: var(--color-ivory);
+  background: rgba(42, 26, 36, 0.3);
+}
+
+.capabilities__footer {
+  margin-top: var(--space-12);
+  text-align: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--color-ivory-faint);
+  text-transform: uppercase;
+}

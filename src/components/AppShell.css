@@ -1,0 +1,15 @@
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.app-shell main {
+  flex: 1 0 auto;
+}
+
+/* Section spacing rhythm */
+section[id] {
+  scroll-margin-top: 80px;
+}

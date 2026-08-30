@@ -1,0 +1,90 @@
+var Canvas = require('canvas');
+const canvas = new Canvas(1200, 630);
+const ctx = canvas.getContext('2d');
+
+// Background — deep near-black with plum undertone
+const grad = ctx.createRadialGradient(600, 320, 100, 600, 320, 700);
+grad.addColorStop(0, '#1a1218');
+grad.addColorStop(0.5, '#0a0e12');
+grad.addColorStop(1, '#05070a');
+ctx.fillStyle = grad;
+ctx.fillRect(0, 0, 1200, 630);
+
+// Subtle botanical silhouette — abstract stem curve
+ctx.beginPath();
+ctx.moveTo(600, 600);
+ctx.quadraticCurveTo(580, 450, 560, 350);
+ctx.quadraticCurveTo(540, 250, 520, 170);
+ctx.strokeStyle = 'rgba(58,74,58,0.4)';
+ctx.lineWidth = 6;
+ctx.stroke();
+
+// Petal shapes — deep fuchsia
+ctx.fillStyle = '#8a3a52';
+ctx.globalAlpha = 0.85;
+for (let i = 0; i < 6; i++) {
+  const angle = (i / 6) * Math.PI * 2 + 0.2;
+  const cx = 600 + Math.cos(angle) * 45;
+  const cy = 180 + Math.sin(angle) * 30;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, 40, 20, angle, 0, Math.PI * 2);
+  ctx.fill();
+}
+ctx.globalAlpha = 1;
+
+// Inner petals — lighter fuchsia
+ctx.fillStyle = '#b04a6a';
+ctx.globalAlpha = 0.7;
+for (let i = 0; i < 5; i++) {
+  const angle = (i / 5) * Math.PI * 2 + 0.5;
+  const cx = 600 + Math.cos(angle) * 25;
+  const cy = 180 + Math.sin(angle) * 18;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, 22, 12, angle, 0, Math.PI * 2);
+  ctx.fill();
+}
+ctx.globalAlpha = 1;
+
+// Center
+ctx.fillStyle = '#3a1a24';
+ctx.beginPath();
+ctx.arc(600, 180, 8, 0, Math.PI * 2);
+ctx.fill();
+
+// Tiny pollen dots
+ctx.fillStyle = '#c8a878';
+ctx.globalAlpha = 0.8;
+for (let i = 0; i < 5; i++) {
+  const angle = (i / 5) * Math.PI * 2;
+  const r = 12;
+  ctx.beginPath();
+  ctx.arc(600 + Math.cos(angle) * r, 180 + Math.sin(angle) * r - 4, 2, 0, Math.PI * 2);
+  ctx.fill();
+}
+ctx.globalAlpha = 1;
+
+// Name
+ctx.fillStyle = '#e8e2d6';
+ctx.font = '400 64px "Georgia", serif';
+ctx.textAlign = 'center';
+ctx.fillText('Basant Awad Mohamed', 600, 360);
+
+// Title
+ctx.fillStyle = '#b8b0a4';
+ctx.font = '300 28px "Georgia", serif';
+ctx.fillText('Backend Software Engineer', 600, 420);
+
+// Bottom tagline
+ctx.fillStyle = '#6a7a6a';
+ctx.font = '300 18px "Georgia", serif';
+ctx.fillText('Nocturne Botanica · Alexandria, Egypt', 600, 490);
+
+// Small specimen number bottom-right
+ctx.fillStyle = '#4a5a4a';
+ctx.font = '12px "Courier New", monospace';
+ctx.fillText('Specimen NB-000', 1100, 600);
+
+const out = require('fs').createWriteStream('public/og-image.png');
+const stream = canvas.createPNGStream();
+stream.pipe(out);
+out.on('finish', () => console.log('og-image.png created'));
