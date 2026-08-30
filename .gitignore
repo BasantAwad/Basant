@@ -28,3 +28,5 @@ tests/verify-*.mjs
 *.njsproj
 *.sln
 *.sw?
+
+.vercel

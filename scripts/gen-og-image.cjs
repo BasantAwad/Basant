@@ -461,7 +461,7 @@ ctx.font = '400 16px "Cormorant Garamond", Georgia, serif';
 ctx.fillStyle = '#807080';
 ctx.fillText('Nocturne Botanica · A Garden in Progress', nameX, nameY + 175);
 
-const outPath = path.join(__dirname, 'public', 'og-image.png');
+const outPath = path.resolve(__dirname, '..', 'public', 'og-image.png');
 const buf = canvas.toBuffer('image/png');
 fs.writeFileSync(outPath, buf);
 console.log('OK: wrote', outPath, '(' + buf.length + ' bytes)');
