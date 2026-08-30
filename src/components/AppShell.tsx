@@ -17,12 +17,10 @@ export const AppShell: React.FC = () => {
   return (
     <div className="app-shell">
       <Navigation />
-      <main className="app-shell__main">
-        {/* Full-page botanical overlay — one scene driven by document scroll */}
-        <div className="app-shell__botany" aria-hidden="true">
-          <BotanicalScene />
-          <DustCanvas />
-        </div>
+      {/* Botanical scene + dust — ABOVE sections so flowers are visible */}
+      <BotanicalScene />
+      <DustCanvas />
+      <main>
         <HeroSection />
         <AboutSection />
         <ExperienceSection />
