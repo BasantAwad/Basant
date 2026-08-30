@@ -26,12 +26,17 @@ const C = {
   leafDark:     '#2e3a22',
   leafLight:    '#5a6a3a',
   leafHi:       '#6a7a4a',
+  leafAltDark:  '#3a3025',
+  leafAltLight: '#708050',
   flowerMain:   '#c94b7a',
   flowerDeep:   '#a0345a',
   flowerLit:    '#e87a9a',
+  flowerMid:    '#c4608a',
   flowerThroat: '#6a1a3a',
   accent:       '#f5eae0',
+  accentDark:   '#c49a7a',
   vine:         '#4a3a2a',
+  vineLight:    '#6a5a4a',
 };
 
 /* ------------------------------------------------------------------ ·
@@ -43,15 +48,15 @@ type LayerId =
   | 'top-left-corner'
   | 'top-right-corner'
   | 'left-edge'
-  |  'right-edge'
+  | 'right-edge'
   | 'bottom-strip';
 
 interface ScrollLayer {
   id: LayerId;
   start: number;
   end: number;
-  baseOpacity: number;   // opacity at scroll 0 (top-strip = 1, rest = 0)
-  endOpacity: number;    // opacity at end scroll
+  baseOpacity: number;
+  endOpacity: number;
   startScale: number;
   endScale: number;
   growth: 'static' | 'grow' | 'grow-then-hold';
@@ -72,7 +77,6 @@ function getLayer(id: LayerId): ScrollLayer {
 
 function computePhase(progress: number, layer: ScrollLayer): { opacity: number; scale: number } {
   const p = Math.min(1, Math.max(0, (progress - layer.start) / (layer.end - layer.start || 1)));
-  // Smoothstep for organic growth
   const smooth = p * p * (3 - 2 * p);
   const opacity = layer.baseOpacity + (layer.endOpacity - layer.baseOpacity) * smooth;
   const scale = layer.startScale + (layer.endScale - layer.startScale) * smooth;
@@ -80,10 +84,19 @@ function computePhase(progress: number, layer: ScrollLayer): { opacity: number; 
 }
 
 /* ------------------------------------------------------------------ ·
- *  SVG drawing helpers (viewBox 0 0 100 100)
+ *  Seeded pseudo-random based on position (no Math.random in render)
+ */
+function seededOffset(seed: number): number {
+  const h = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
+  return (h - Math.floor(h)) * 2 - 1;
+}
+
+/* ------------------------------------------------------------------ ·
+ *  Realistic bell flower with multiple petals, organic curves, depth layers,
+ *  and charming stamen detail.
+ *  Inspired by Campanula-style bell flowers — pendulous, multi-petal.
  */
 
-// Bell flower — pendulous fuchsia bell with lobes, throat, stamens, sepals, pedicel.
 function BellFlower({
   cx, cy, scale = 1,
   hue = C.flowerMain,
@@ -94,82 +107,172 @@ function BellFlower({
   cx: number; cy: number; scale?: number;
   hue?: string; depth?: string; lit?: string; throat?: string;
 }) {
-  const r = 3.2 * scale;
-  const h = 5.0 * scale;
-  const lobeH = 1.2 * scale;
-  const stemTop = cy - h * 0.9;
-  const stemBot = cy - h * 0.15;
+  const s = scale;
+  const bellR = 3.0 * s;
+  const bellH = 4.5 * s;
+  const petalCount = 7;
 
   return (
-    <g key={`bell-${cx}-${cy}-${Math.random().toString(36).slice(2,6)}`} transform={`translate(${cx} ${cy}) scale(${scale})`}>
-      {stemTop > 0 && <line x1={cx} y1={stemTop} x2={cx} y2={stemBot} stroke={C.stem} strokeWidth={0.15 * scale} strokeLinecap="round" />}
-      {/* Bell body */}
+    <g transform={`translate(${cx} ${cy})`}>
+      {/* Back petals (visible behind the bell) */}
+      {Array.from({ length: petalCount }, (_, i) => {
+        const angle = (i / petalCount) * Math.PI * 2 - Math.PI / 2;
+        const petalLen = bellR * (0.85 + (i % 3) * 0.05);
+        const petalWid = bellR * 0.45 * (0.9 + (i % 2) * 0.1);
+        const offsetX = Math.cos(angle) * bellR * 0.35;
+        const offsetY = Math.sin(angle) * bellR * 0.35 - bellH * 0.15;
+        return (
+          <g key={`petal-back-${i}`} transform={`translate(${offsetX} ${offsetY}) rotate(${angle * 180 / Math.PI})`}>
+            <path
+              d={`M 0 0
+                  Q ${-petalWid * 0.6} ${-petalLen * 0.4}
+                    ${-petalWid * 0.3} ${-petalLen}
+                  Q 0 ${-petalLen * 1.08}
+                    ${petalWid * 0.3} ${-petalLen}
+                  Q ${petalWid * 0.6} ${-petalLen * 0.4}
+                    0 0
+                  Z`}
+              fill={depth}
+              stroke={hue}
+              strokeWidth={0.12 * s}
+              opacity={0.85}
+              style={{ filter: 'url(#petalShadow)' }}
+            />
+            <path
+              d={`M 0 ${-petalLen * 0.05} L 0 ${-petalLen * 0.9}`}
+              stroke={lit}
+              strokeWidth={0.07 * s}
+              strokeLinecap="round"
+              opacity={0.4}
+            />
+          </g>
+        );
+      })}
+
+      {/* Bell body (the main pendulous shape) */}
       <path
-        d={`M ${cx - r} ${cy - h * 0.1}
-            Q ${cx - r * 1.15} ${cy - h * 0.55} ${cx - r * 0.55} ${cy - h}
-            L ${cx - r * 0.45} ${cy - h - lobeH}
-            L ${cx - r * 0.2} ${cy - h}
-            Q ${cx} ${cy - h * 1.02} ${cx + r * 0.2} ${cy - h}
-            L ${cx + r * 0.45} ${cy - h - lobeH}
-            L ${cx + r * 0.55} ${cy - h}
-            Q ${cx + r * 1.15} ${cy - h * 0.55} ${cx + r} ${cy - h * 0.1}
+        d={`M ${-bellR} ${0.1 * s}
+            Q ${-bellR * 1.2} ${-bellH * 0.45} ${-bellR * 0.6} ${-bellH}
+            L ${-bellR * 0.5} ${-bellH - 1.0 * s}
+            Q ${-bellR * 0.3} ${-bellH - 1.25 * s} ${-bellR * 0.1} ${-bellH - 1.0 * s}
+            Q 0 ${-bellH - 1.3 * s} ${bellR * 0.1} ${-bellH - 1.0 * s}
+            Q ${bellR * 0.3} ${-bellH - 1.25 * s} ${bellR * 0.5} ${-bellH - 1.0 * s}
+            L ${bellR * 0.6} ${-bellH}
+            Q ${bellR * 1.2} ${-bellH * 0.45} ${bellR} ${0.1 * s}
             Z`}
         fill={hue}
         stroke={depth}
-        strokeWidth={0.18 * scale}
-        opacity={0.92}
+        strokeWidth={0.2 * s}
+        opacity={0.95}
         style={{ filter: 'url(#bellShadow)' }}
       />
-      {/* Lit highlight */}
+
+      {/* Bell highlight (curved sheen) */}
       <path
-        d={`M ${cx - r * 0.4} ${cy - h * 0.2}
-            Q ${cx - r * 0.55} ${cy - h * 0.55} ${cx - r * 0.4} ${cy - h * 0.95}
-            L ${cx - r * 0.2} ${cy - h * 0.95}
-            Q ${cx - r * 0.15} ${cy - h * 0.55} ${cx - r * 0.25} ${cy - h * 0.2}
+        d={`M ${-bellR * 0.45} ${-bellH * 0.15}
+            Q ${-bellR * 0.6} ${-bellH * 0.5} ${-bellR * 0.45} ${-bellH * 0.9}
+            L ${-bellR * 0.25} ${-bellH * 0.9}
+            Q ${-bellR * 0.15} ${-bellH * 0.5} ${-bellR * 0.2} ${-bellH * 0.15}
             Z`}
         fill={lit}
-        opacity={0.5}
+        opacity={0.55}
         style={{ filter: 'url(#bellSoft)' }}
       />
-      {/* Throat + stamens */}
-      <circle cx={cx} cy={cy - h * 0.88} r={0.9 * scale} fill={throat} stroke={depth} strokeWidth={0.1 * scale} />
-      <line x1={cx} y1={cy - h * 0.88} x2={cx - 2.2 * scale} y2={cy - h * 0.7} stroke={C.accent} strokeWidth={0.12 * scale} strokeLinecap="round" opacity={0.85} />
-      <line x1={cx} y1={cy - h * 0.88} x2={cx + 2.0 * scale} y2={cy - h * 0.72} stroke={C.accent} strokeWidth={0.12 * scale} strokeLinecap="round" opacity={0.8} />
-      {/* Sepals */}
+
+      {/* Bell rim detail (lobed edge) */}
+      {Array.from({ length: 8 }, (_, i) => {
+        const angle = (i / 8) * Math.PI * 2;
+        const cx_rim = Math.cos(angle) * bellR * 0.95;
+        const cy_rim = Math.sin(angle) * bellR * 0.2 + 0.1 * s;
+        return (
+          <circle
+            key={`rim-${i}`}
+            cx={cx_rim}
+            cy={cy_rim}
+            r={0.3 * s}
+            fill={depth}
+            opacity={0.7}
+          />
+        );
+      })}
+
+      {/* Throat + stamens (charming detail) */}
+      <circle cx={0} cy={-bellH * 0.85} r={0.85 * s} fill={throat} stroke={depth} strokeWidth={0.12 * s} />
+      {Array.from({ length: 5 }, (_, i) => {
+        const angle = (i / 5) * Math.PI * 2 + 0.2;
+        const len = (1.8 + (i % 2) * 0.4) * s;
+        const dx = Math.cos(angle) * len;
+        const dy = Math.sin(angle) * len * 0.5;
+        return (
+          <g key={`stamen-${i}`}>
+            <line
+              x1={0} y1={-bellH * 0.85}
+              x2={dx} y2={-bellH * 0.85 + dy}
+              stroke={C.accent}
+              strokeWidth={0.13 * s}
+              strokeLinecap="round"
+              opacity={0.85}
+            />
+            <circle
+              cx={dx} cy={-bellH * 0.85 + dy}
+              r={0.25 * s}
+              fill={C.accent}
+              opacity={0.9}
+            />
+          </g>
+        );
+      })}
+
+      {/* Sepals (leaf-like bracts at bell top) */}
+      {Array.from({ length: 5 }, (_, i) => {
+        const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
+        const sepLen = bellR * 0.55;
+        const sepWid = bellR * 0.2;
+        const sx = Math.cos(angle) * bellR * 0.4;
+        const sy = Math.sin(angle) * bellR * 0.3 + 0.1 * s;
+        return (
+          <g key={`sepal-${i}`} transform={`translate(${sx} ${sy}) rotate(${angle * 180 / Math.PI})`}>
+            <path
+              d={`M 0 0
+                  Q ${-sepWid * 0.5} ${-sepLen * 0.4}
+                    0 ${-sepLen}
+                  Q ${sepWid * 0.5} ${-sepLen * 0.4}
+                    0 0
+                  Z`}
+              fill={depth}
+              stroke={C.leafDark}
+              strokeWidth={0.08 * s}
+              opacity={0.9}
+            />
+          </g>
+        );
+      })}
+
+      {/* Pedicel (stem below flower) */}
       <path
-        d={`M ${cx - r * 0.5} ${cy - h * 0.1}
-            Q ${cx - r * 0.8} ${cy - h * 0.2} ${cx - r * 0.7} ${cy - h * 0.05}
-            L ${cx - r * 0.4} ${cy - h * 0.15}
-            Q ${cx} ${cy - h * 0.05} ${cx + r * 0.4} ${cy - h * 0.15}
-            L ${cx + r * 0.7} ${cy - h * 0.05}
-            Q ${cx + r * 0.8} ${cy - h * 0.2} ${cx + r * 0.5} ${cy - h * 0.1}
-            Z`}
-        fill={depth}
-        stroke={C.leafDark}
-        strokeWidth={0.08 * scale}
-      />
-      {/* Pedicel */}
-      <path
-        d={`M ${cx} ${cy - h * 0.1}
-            Q ${cx + (Math.random() * 2 - 1) * 0.6} ${cy - h * 0.05}
-            ${cx + (Math.random() * 2 - 1) * 1.0} ${cy + 0.4}`}
+        d={`M 0 ${0.1 * s}
+            Q ${seededOffset(cx * 100 + cy) * 0.6 * s} ${0.3 * s}
+            ${seededOffset(cx * 100 + cy + 1) * 1.2 * s} ${1.0 * s}`}
         fill="none"
         stroke={C.vine}
-        strokeWidth={0.2 * scale}
+        strokeWidth={0.22 * s}
         strokeLinecap="round"
-        opacity={0.85}
+        opacity={0.9}
       />
     </g>
   );
 }
 
-// Leaf — organic asymmetric blade with midrib + side veins.
+/* ------------------------------------------------------------------ ·
+ *  Organic leaf — asymmetric blade with midrib and side veins.
+ */
 function Leaf({
   cx, cy, angle = 0, length = 6, width = 2.6, rotate = 0,
   dark = C.leafDark, light = C.leafLight, hi = C.leafHi,
 }: {
   cx: number; cy: number; angle?: number; length?: number; width?: number; rotate?: number;
   dark?: string; light?: string; hi?: string;
+  altDark?: string; altLight?: string;
 }) {
   const rad = (rotate * Math.PI) / 180;
   const cosA = Math.cos(rad);
@@ -178,47 +281,76 @@ function Leaf({
   const ry = cy;
 
   return (
-    <g key={`leaf-${cx}-${cy}-${rotate}`} transform={`translate(${cx} ${cy}) rotate(${rotate})`}>
+    <g key={`leaf-${cx}-${cy}-${rotate}`} transform={`translate(${rx} ${ry}) rotate(${rotate + angle * 5})`}>
+      {/* Leaf blade — organic asymmetric shape */}
       <path
-        d={`M ${rx} ${ry}
-            Q ${rx - width * 0.6 * cosA - length * 0.3 * sinA} ${ry - width * 0.6 * sinA + length * 0.3 * cosA}
-              ${rx - width * 0.8 * cosA - length * 0.7 * sinA} ${ry - width * 0.8 * sinA + length * 0.7 * cosA}
-            Q ${rx - width * 0.4 * cosA - length * 1.0 * sinA} ${ry - width * 0.4 * sinA + length * 1.0 * cosA}
-              ${rx - width * 0.1 * cosA - length * 1.15 * sinA} ${ry - width * 0.1 * sinA + length * 1.15 * cosA}
-            Q ${rx + width * 0.1 * cosA - length * 1.15 * sinA} ${ry + width * 0.1 * sinA + length * 1.15 * cosA}
-              ${rx + width * 0.4 * cosA - length * 1.0 * sinA} ${ry + width * 0.4 * sinA + length * 1.0 * cosA}
-            Q ${rx + width * 0.8 * cosA - length * 0.7 * sinA} ${ry + width * 0.8 * sinA + length * 0.7 * cosA}
-              ${rx + width * 0.6 * cosA - length * 0.3 * sinA} ${ry + width * 0.6 * sinA + length * 0.3 * cosA}
-            Q ${rx + width * 0.3 * cosA} ${ry + width * 0.3 * sinA}
-              ${rx} ${ry}
+        d={`M 0 0
+            Q ${-width * 0.55 * cosA - length * 0.35 * sinA} ${-width * 0.55 * sinA + length * 0.35 * cosA}
+              ${-width * 0.75 * cosA - length * 0.75 * sinA} ${-width * 0.75 * sinA + length * 0.75 * cosA}
+            Q ${-width * 0.35 * cosA - length * 1.1 * sinA} ${-width * 0.35 * sinA + length * 1.1 * cosA}
+              ${-width * 0.05 * cosA - length * 1.2 * sinA} ${-width * 0.05 * sinA + length * 1.2 * cosA}
+            Q ${width * 0.05 * cosA - length * 1.2 * sinA} ${width * 0.05 * sinA + length * 1.2 * cosA}
+              ${width * 0.35 * cosA - length * 1.1 * sinA} ${width * 0.35 * sinA + length * 1.1 * cosA}
+            Q ${width * 0.75 * cosA - length * 0.75 * sinA} ${width * 0.75 * sinA + length * 0.75 * cosA}
+              ${width * 0.55 * cosA - length * 0.35 * sinA} ${width * 0.55 * sinA + length * 0.35 * cosA}
+            Q ${width * 0.3 * cosA} ${width * 0.3 * sinA}
+              0 0
             Z`}
         fill={dark}
         stroke={light}
-        strokeWidth={0.12}
+        strokeWidth={0.14}
         opacity={0.95}
         style={{ filter: 'url(#leafTexture)' }}
       />
-      <path d={`M ${rx} ${ry} L ${rx - length * 1.1 * sinA} ${ry + length * 1.1 * cosA}`} stroke={hi} strokeWidth={0.12} strokeLinecap="round" opacity={0.6} />
+
+      {/* Leaf highlight */}
+      <path
+        d={`M ${-width * 0.2 * cosA - length * 0.3 * sinA} ${-width * 0.2 * sinA + length * 0.3 * cosA}
+            Q ${-width * 0.1 * cosA - length * 0.7 * sinA} ${-width * 0.1 * sinA + length * 0.7 * cosA}
+              ${-width * 0.05 * cosA - length * 0.9 * sinA} ${-width * 0.05 * sinA + length * 0.9 * cosA}
+            Q ${width * 0.0} ${0}
+              ${width * 0.1 * cosA - length * 0.5 * sinA} ${width * 0.1 * sinA + length * 0.5 * cosA}
+            Q ${width * 0.2 * cosA - length * 0.2 * sinA} ${width * 0.2 * sinA + length * 0.2 * cosA}
+              0 0
+            Z`}
+        fill={hi}
+        opacity={0.25}
+        style={{ filter: 'url(#leafSoft)' }}
+      />
+
+      {/* Midrib */}
+      <path
+        d={`M 0 0 L ${-length * 1.15 * sinA} ${length * 1.15 * cosA}`}
+        stroke={hi}
+        strokeWidth={0.14}
+        strokeLinecap="round"
+        opacity={0.55}
+      />
+
+      {/* Side veins */}
       {[
-        { a: 0.25, d: 0.5 },
-        { a: 0.45, d: 0.65 },
-        { a: 0.65, d: 0.5 },
+        { t: 0.22, d: 0.45, side: 1 },
+        { t: 0.42, d: 0.60, side: -1 },
+        { t: 0.62, d: 0.50, side: 1 },
+        { t: 0.78, d: 0.35, side: -1 },
       ].map((v) => (
         <path
-          key={`vein-${v.a}-${v.d}`}
-          d={`M ${rx - v.d * length * 0.4 * sinA} ${ry + v.d * length * 0.4 * cosA}
-              L ${rx - v.d * length * sinA - v.a * width * 0.5 * cosA} ${ry + v.d * length * cosA + v.a * width * 0.5 * sinA}`}
-          stroke={C.leafLight}
-          strokeWidth={0.06}
+          key={`vein-${v.t}-${v.d}-${v.side}`}
+          d={`M ${-v.t * length * 1.1 * sinA} ${v.t * length * 1.1 * cosA}
+              L ${-v.t * length * sinA - v.d * width * 0.5 * cosA} ${v.t * length * cosA + v.d * width * 0.5 * sinA}`}
+          stroke={light}
+          strokeWidth={0.07}
           strokeLinecap="round"
-          opacity={0.35}
+          opacity={0.3}
         />
       ))}
     </g>
   );
 }
 
-// Vine segment — quadratic curve with leaves.
+/* ------------------------------------------------------------------ ·
+ *  Vine segment — quadratic curve with leaves.
+ */
 function VineSegment({
   x1, y1, x2, y2, leaves = 2, color = C.stem,
 }: {
@@ -231,7 +363,7 @@ function VineSegment({
   const len = Math.sqrt(dx * dx + dy * dy) || 1;
   const nx = -dy / len;
   const ny = dx / len;
-  const curveOff = 2.5 * (Math.random() > 0.5 ? 1 : -1);
+  const curveOff = 2.5 * (seededOffset(x1 * 100 + y1) > 0 ? 1 : -1);
   const cpx = mx + nx * curveOff;
   const cpy = my + ny * curveOff;
 
@@ -243,6 +375,7 @@ function VineSegment({
         const lx = (1 - t) * (1 - t) * x1 + 2 * (1 - t) * t * cpx + t * t * x2;
         const ly = (1 - t) * (1 - t) * y1 + 2 * (1 - t) * t * cpy + t * t * y2;
         const side = i % 2 === 0 ? 1 : -1;
+        const seed = x1 * 1000 + y1 + i * 7;
         return (
           <Leaf
             key={`vine-leaf-${x1}-${y1}-${i}`}
@@ -251,7 +384,9 @@ function VineSegment({
             angle={0}
             length={3.5}
             width={1.6}
-            rotate={side > 0 ? 30 + Math.random() * 40 : -30 - Math.random() * 40}
+            rotate={side > 0 ? 30 + seededOffset(seed) * 20 : -30 - seededOffset(seed + 1) * 20}
+            dark={i % 2 === 0 ? C.leafDark : C.leafAltDark}
+            light={i % 2 === 0 ? C.leafLight : C.leafAltLight}
           />
         );
       })}
@@ -259,7 +394,9 @@ function VineSegment({
   );
 }
 
-// Small bud.
+/* ------------------------------------------------------------------ ·
+ *  Small bud — rounded teardrop shape.
+ */
 function BellBud({
   cx, cy, scale = 1,
   hue = C.flowerMain, depth = C.flowerDeep,
@@ -267,28 +404,39 @@ function BellBud({
   cx: number; cy: number; scale?: number;
   hue?: string; depth?: string;
 }) {
-  const r = 1.8 * scale;
+  const s = scale;
+  const r = 1.8 * s;
+  const dx = seededOffset(cx * 100 + cy) * 0.3 * s;
+  const dy = seededOffset(cx * 100 + cy + 3) * 0.2 * s;
   return (
     <g key={`bud-${cx}-${cy}`} transform={`translate(${cx} ${cy})`}>
       <path
-        d={`M ${cx - r * 0.55} ${cy + r * 0.4}
-            Q ${cx - r * 0.9} ${cy - r * 0.1} ${cx - r * 0.5} ${cy - r * 0.4}
-            Q ${cx} ${cy - r * 0.6} ${cx + r * 0.5} ${cy - r * 0.4}
-            Q ${cx + r * 0.9} ${cy - r * 0.1} ${cx + r * 0.55} ${cy + r * 0.4}
-            Q ${cx} ${cy + r * 0.5} ${cx - r * 0.55} ${cy + r * 0.4}
+        d={`M ${cx - r * 0.55 + dx} ${cy + r * 0.4 + dy}
+            Q ${cx - r * 0.9 + dx} ${cy - r * 0.1 + dy} ${cx - r * 0.5 + dx} ${cy - r * 0.4 + dy}
+            Q ${cx + dx} ${cy - r * 0.6 + dy} ${cx + r * 0.5 + dx} ${cy - r * 0.4 + dy}
+            Q ${cx + r * 0.9 + dx} ${cy - r * 0.1 + dy} ${cx + r * 0.55 + dx} ${cy + r * 0.4 + dy}
+            Q ${cx + dx} ${cy + r * 0.5 + dy} ${cx - r * 0.55 + dx} ${cy + r * 0.4 + dy}
             Z`}
         fill={hue}
         stroke={depth}
-        strokeWidth={0.15 * scale}
+        strokeWidth={0.15 * s}
         opacity={0.9}
+        style={{ filter: 'url(#bellShadow)' }}
+      />
+      <path
+        d={`M ${cx - r * 0.15 + dx} ${cy - r * 0.25 + dy} L ${cx + dx} ${cy - r * 0.35 + dy}`}
+        stroke={C.accent}
+        strokeWidth={0.08 * s}
+        strokeLinecap="round"
+        opacity={0.6}
       />
     </g>
   );
 }
 
-// ------------------------------------------------------------------ ·
-//  Top strip — dense row of bell flowers across the full top edge.
-// ------------------------------------------------------------------ ·
+/* ------------------------------------------------------------------ ·
+ *  Top strip — dense row of bell flowers across the full top edge.
+ */
 
 const TOP_FLOWERS = [
   { x: 2,    y: 10, s: 1.1,  hue: C.flowerMain, depth: C.flowerDeep, lit: C.flowerLit },
@@ -392,19 +540,15 @@ const TOP_BUDS = [
 function TopStrip({ opacity, scale }: { opacity: number; scale: number }) {
   return (
     <g opacity={opacity} transform={`scale(${scale})`} style={{ transformOrigin: '50% 50%' }}>
-      {/* Top framing leaves */}
       {TOP_TOP_LEAVES.map((l, i) => (
         <Leaf key={`top-top-leaf-${i}`} cx={l.x} cy={l.y} angle={l.x / 100} length={l.len} width={l.wid} rotate={l.rot} />
       ))}
-      {/* Main flowers */}
       {TOP_FLOWERS.map((f, i) => (
         <BellFlower key={`top-flower-${i}`} cx={f.x} cy={f.y} scale={f.s} hue={f.hue} depth={f.depth} lit={f.lit} />
       ))}
-      {/* Strand leaves */}
       {TOP_STRAND_LEAVES.map((l, i) => (
         <Leaf key={`strand-leaf-${i}`} cx={l.x} cy={l.y} angle={l.x / 100} length={l.len} width={l.wid} rotate={l.rot} />
       ))}
-      {/* Buds */}
       {TOP_BUDS.map((b, i) => (
         <BellBud key={`bud-${i}`} cx={b.x} cy={b.y} scale={b.s} hue={C.flowerLit} depth={C.flowerDeep} />
       ))}
@@ -412,9 +556,9 @@ function TopStrip({ opacity, scale }: { opacity: number; scale: number }) {
   );
 }
 
-// ------------------------------------------------------------------ ·
-//  Corner cluster — 6-7 bell flowers + leaves + vines.
-// ------------------------------------------------------------------ ·
+/* ------------------------------------------------------------------ ·
+ *  Corner cluster — 6 bell flowers + leaves + vines.
+ */
 
 function CornerCluster({ cx, cy, flipX = 1, flipY = 1, opacity, scale }: {
   cx: number; cy: number; flipX?: number; flipY?: number;
@@ -422,11 +566,9 @@ function CornerCluster({ cx, cy, flipX = 1, flipY = 1, opacity, scale }: {
 }) {
   return (
     <g opacity={opacity} transform={`translate(${cx} ${cy}) scale(${flipX * scale} ${flipY * scale})`} style={{ transformOrigin: '0 0' }}>
-      {/* Corner stems */}
       <path d="M 0 0 Q -3 -4 -1 -8 Q 2 -12 0 -15" fill="none" stroke={C.stem} strokeWidth={0.35} strokeLinecap="round" opacity={0.85} />
       <path d="M 0 0 Q 3 -4 1 -8 Q -2 -12 0 -15" fill="none" stroke={C.stem} strokeWidth={0.3} strokeLinecap="round" opacity={0.75} />
 
-      {/* Dense cluster of 7 bell flowers */}
       <BellFlower cx={-4}  cy={-9}  scale={0.85} hue={C.flowerMain} depth={C.flowerDeep} lit={C.flowerLit} />
       <BellFlower cx={3}   cy={-8}  scale={0.9}  hue={C.flowerLit}  depth={C.flowerDeep} lit={C.flowerMain} />
       <BellFlower cx={-2}  cy={-12} scale={0.75} hue={C.flowerMain} depth={C.flowerDeep} lit={C.flowerLit} />
@@ -435,7 +577,6 @@ function CornerCluster({ cx, cy, flipX = 1, flipY = 1, opacity, scale }: {
       <BellFlower cx={6}   cy={-14} scale={0.65} hue={C.flowerLit}  depth={C.flowerDeep} lit={C.flowerMain} />
       <BellFlower cx={0}   cy={-15} scale={0.7}  hue={C.flowerMain} depth={C.flowerDeep} lit={C.flowerLit} />
 
-      {/* Dense leaves around the corner */}
       <Leaf cx={-6} cy={-6} length={4}   width={1.8} rotate={-55} />
       <Leaf cx={-2} cy={-5} length={3.5} width={1.6} rotate={-75} />
       <Leaf cx={3}  cy={-5} length={4}   width={1.7} rotate={50} />
@@ -447,13 +588,11 @@ function CornerCluster({ cx, cy, flipX = 1, flipY = 1, opacity, scale }: {
       <Leaf cx={-1} cy={-7} length={3}   width={1.4} rotate={-45} />
       <Leaf cx={4}  cy={-4} length={3}   width={1.4} rotate={40} />
 
-      {/* Buds */}
       <BellBud cx={-3} cy={-7}  scale={0.4}  hue={C.flowerMain} depth={C.flowerDeep} />
       <BellBud cx={2}  cy={-10} scale={0.35} hue={C.flowerLit}  depth={C.flowerDeep} />
       <BellBud cx={-5} cy={-10} scale={0.38} hue={C.flowerLit}  depth={C.flowerDeep} />
       <BellBud cx={4}  cy={-7}  scale={0.35} hue={C.flowerMain} depth={C.flowerDeep} />
 
-      {/* Vine tendrils */}
       <path d="M -4 -9 Q -8 -10 -10 -8" fill="none" stroke={C.vine} strokeWidth={0.2} strokeLinecap="round" opacity={0.7} />
       <path d="M 3 -8 Q 7 -7 9 -9"     fill="none" stroke={C.vine} strokeWidth={0.2} strokeLinecap="round" opacity={0.7} />
       <path d="M 0 -15 Q -2 -18 0 -20" fill="none" stroke={C.vine} strokeWidth={0.18} strokeLinecap="round" opacity={0.6} />
@@ -461,9 +600,9 @@ function CornerCluster({ cx, cy, flipX = 1, flipY = 1, opacity, scale }: {
   );
 }
 
-// ------------------------------------------------------------------ ·
-//  Edge vine — full height with bell flowers every ~15 units.
-// ------------------------------------------------------------------ ·
+/* ------------------------------------------------------------------ ·
+ *  Edge vine — full height with bell flowers every ~15 units.
+ */
 
 function EdgeVine({ side, opacity, scale }: { side: 'left' | 'right'; opacity: number; scale: number }) {
   const xBase = side === 'left' ? 4 : 96;
@@ -484,7 +623,6 @@ function EdgeVine({ side, opacity, scale }: { side: 'left' | 'right'; opacity: n
 
   return (
     <g opacity={opacity} transform={`scale(${scale})`} style={{ transformOrigin: '50% 50%' }}>
-      {/* Main vine stem */}
       <path
         d={points.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : ` L ${p.x} ${p.y}`)).join(' ')}
         fill="none"
@@ -494,7 +632,6 @@ function EdgeVine({ side, opacity, scale }: { side: 'left' | 'right'; opacity: n
         opacity={0.85}
       />
 
-      {/* Sub-branches with leaves */}
       <VineSegment x1={points[0].x} y1={points[0].y} x2={points[0].x + flipX * 3}     y2={points[0].y - 4} leaves={2} />
       <VineSegment x1={points[1].x} y1={points[1].y} x2={points[1].x + flipX * 3.5}   y2={points[1].y - 3} leaves={2} />
       <VineSegment x1={points[2].x} y1={points[2].y} x2={points[2].x + flipX * 3}     y2={points[2].y + 4} leaves={2} />
@@ -506,24 +643,21 @@ function EdgeVine({ side, opacity, scale }: { side: 'left' | 'right'; opacity: n
       <VineSegment x1={points[8].x} y1={points[8].y} x2={points[8].x + flipX * 3}     y2={points[8].y + 4} leaves={2} />
       <VineSegment x1={points[9].x} y1={points[9].y} x2={points[9].x + flipX * 3.5}   y2={points[9].y - 2} leaves={2} />
 
-      {/* Bell flowers along the edge */}
       <BellFlower cx={points[1].x + flipX * 2}   cy={points[1].y - 2}   scale={0.8}  hue={C.flowerMain} depth={C.flowerDeep} lit={C.flowerLit} />
       <BellFlower cx={points[3].x + flipX * 2.5} cy={points[3].y + 1}   scale={0.75} hue={C.flowerLit}  depth={C.flowerDeep} lit={C.flowerMain} />
       <BellFlower cx={points[5].x + flipX * 2}   cy={points[5].y - 2}   scale={0.85} hue={C.flowerMain} depth={C.flowerDeep} lit={C.flowerLit} />
       <BellFlower cx={points[7].x + flipX * 2.5} cy={points[7].y - 1}   scale={0.7}  hue={C.flowerLit}  depth={C.flowerDeep} lit={C.flowerMain} />
       <BellFlower cx={points[8].x + flipX * 2}   cy={points[8].y + 1}   scale={0.8}  hue={C.flowerMain} depth={C.flowerDeep} lit={C.flowerLit} />
 
-      {/* Leaves directly on the main vine */}
       {points.slice(1).map((p, i) => (
         <Leaf
           key={`edge-leaf-${side}-${i}`}
           cx={p.x + flipX * 1.5} cy={p.y + 2}
-          length={3 + Math.random() * 1.5} width={1.5 + Math.random() * 0.5}
-          rotate={side === 'left' ? 30 + Math.random() * 30 : -30 - Math.random() * 30}
+          length={3 + seededOffset(p.x * 100 + i) * 0.75} width={1.5 + seededOffset(p.y * 100 + i + 20) * 0.25}
+          rotate={side === 'left' ? 30 + seededOffset(p.x * 100 + i + 50) * 15 : -30 - seededOffset(p.x * 100 + i + 60) * 15}
         />
       ))}
 
-      {/* Buds */}
       <BellBud cx={points[2].x + flipX * 2} cy={points[2].y + 1} scale={0.4}  hue={C.flowerMain} depth={C.flowerDeep} />
       <BellBud cx={points[4].x + flipX * 2} cy={points[4].y - 1} scale={0.38} hue={C.flowerLit}  depth={C.flowerDeep} />
       <BellBud cx={points[6].x + flipX * 2} cy={points[6].y + 1} scale={0.42} hue={C.flowerMain} depth={C.flowerDeep} />
@@ -531,9 +665,9 @@ function EdgeVine({ side, opacity, scale }: { side: 'left' | 'right'; opacity: n
   );
 }
 
-// ------------------------------------------------------------------ ·
-//  Bottom strip — lighter garland.
-// ------------------------------------------------------------------ ·
+/* ------------------------------------------------------------------ ·
+ *  Bottom strip — lighter garland.
+ */
 
 const BOTTOM_FLOWERS = [
   { x: 5,    s: 0.7,  hue: C.flowerMain, depth: C.flowerDeep, lit: C.flowerLit },
@@ -614,45 +748,55 @@ export const BotanicalScene: React.FC = () => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
+          {/* Bell flower radial gradient — petal interior shading */}
+          <radialGradient id="bellGrad" cx="50%" cy="100%" r="70%">
+            <stop offset="0%"   stop-color="#e87a9a" />
+            <stop offset="45%"  stop-color="#c94b7a" />
+            <stop offset="80%"  stop-color="#a0345a" />
+            <stop offset="100%" stop-color="#6a1a3a" />
+          </radialGradient>
+
+          {/* Leaf gradient — darker at base, lighter at tip */}
+          <linearGradient id="leafGrad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%"   stop-color="#2e3a22" />
+            <stop offset="50%"  stop-color="#4a5a2a" />
+            <stop offset="100%" stop-color="#6a7a4a" />
+          </linearGradient>
+
+          {/* Highlight gradient for bell body */}
+          <linearGradient id="bellHighlight" x1="-0.5" y1="0.2" x2="0.5" y2="0.8">
+            <stop offset="0%"   stop-color="#f5eae0" stop-opacity="0.5" />
+            <stop offset="50%"  stop-color="#e87a9a" stop-opacity="0.15" />
+            <stop offset="100%" stop-color="#c94b7a" stop-opacity="0" />
+          </linearGradient>
+
           <filter id="bellShadow" x="-50%" y="-50%" width="200%" height="200%">
             <feDropShadow dx="0.2" dy="0.3" stdDeviation="0.3" floodColor="#000" floodOpacity="0.25" />
           </filter>
           <filter id="bellSoft" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="0.2" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            <feGaussianBlur stdDeviation="0.15" result="blur" />
+            <feComposite in="blur" in2="SourceGraphic" operator="over" />
           </filter>
-          <filter id="leafTexture" x="-50%" y="-50%" width="200%" height="200%">
+          <filter id="petalShadow" x="-50%" y="-50%" width="200%" height="200%">
             <feDropShadow dx="0.1" dy="0.15" stdDeviation="0.15" floodColor="#000" floodOpacity="0.18" />
           </filter>
-          <filter id="stemSoft" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="0.25" />
+          <filter id="leafTexture" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="0.08" result="blur" />
+            <feComposite in="blur" in2="SourceGraphic" operator="over" />
           </filter>
-          <radialGradient id="flowerGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#c94b7a" stopOpacity="0.15" />
-            <stop offset="100%" stopColor="#c94b7a" stopOpacity="0" />
-          </radialGradient>
+          <filter id="leafSoft" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="0.2" result="blur" />
+            <feComposite in="blur" in2="SourceGraphic" operator="over" />
+          </filter>
         </defs>
 
-        {/* Top strip — ALWAYS visible, grows on scroll */}
         <TopStrip opacity={phaseTop.opacity} scale={phaseTop.scale} />
-
-        {/* Top-left corner */}
-        <CornerCluster cx={2} cy={2} flipX={1} flipY={1} opacity={phaseCornerL.opacity} scale={phaseCornerL.scale} />
-
-        {/* Top-right corner */}
-        <CornerCluster cx={98} cy={2} flipX={-1} flipY={1} opacity={phaseCornerR.opacity} scale={phaseCornerR.scale} />
-
-        {/* Left edge vine */}
-        <EdgeVine side="left" opacity={phaseLeft.opacity} scale={phaseLeft.scale} />
-
-        {/* Right edge vine */}
+        <CornerCluster cx={0} cy={0} flipX={1} flipY={1} opacity={phaseCornerL.opacity} scale={phaseCornerL.scale} />
+        <CornerCluster cx={100} cy={0} flipX={-1} flipY={1} opacity={phaseCornerR.opacity} scale={phaseCornerR.scale} />
+        <EdgeVine side="left"  opacity={phaseLeft.opacity} scale={phaseLeft.scale} />
         <EdgeVine side="right" opacity={phaseRight.opacity} scale={phaseRight.scale} />
-
-        {/* Bottom strip */}
         <BottomStrip opacity={phaseBottom.opacity} scale={phaseBottom.scale} />
       </svg>
     </div>
   );
 }
-
-export default BotanicalScene;
