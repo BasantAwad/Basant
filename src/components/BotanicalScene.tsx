@@ -160,7 +160,7 @@ function BellFlower({
             L ${bellR * 0.6} ${-bellH}
             Q ${bellR * 1.2} ${-bellH * 0.45} ${bellR} ${0.1 * s}
             Z`}
-        fill={hue}
+        fill="url(#bellGrad)"
         stroke={depth}
         strokeWidth={0.2 * s}
         opacity={0.95}
