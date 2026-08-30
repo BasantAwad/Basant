@@ -1,6 +1,5 @@
 import { useRef } from 'react';
-import { githubLaboratory, githubRepos } from '../data/github';
-import { BotanicalScene } from './BotanicalScene';
+import { githubRepos, githubLaboratory } from '../data/github';
 import './GitHubLaboratory.css';
 
 function RepoRow({ repo, idx }: { repo: (typeof githubRepos)[0]; idx: number }) {
@@ -40,11 +39,6 @@ export const GitHubLaboratory: React.FC = () => {
 
   return (
     <section id="github" className="github-lab">
-      {/* Quiet laboratory atmosphere */}
-      <div className="github-lab__botany" aria-hidden="true">
-        <BotanicalScene />
-      </div>
-
       <div className="github-lab__header container--narrow">
         <span className="specimen-label">Field annotation · Section VII</span>
         <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>

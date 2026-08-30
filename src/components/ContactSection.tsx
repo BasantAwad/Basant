@@ -1,6 +1,5 @@
 import React from 'react';
 import { personal } from '../data/personal';
-import { BotanicalScene } from './BotanicalScene';
 import './Contact.css';
 
 export const ContactSection: React.FC = () => {
@@ -8,11 +7,6 @@ export const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="contact">
-      {/* Deep quiet clearing — botanical accent */}
-      <div className="contact__botany" aria-hidden="true">
-        <BotanicalScene />
-      </div>
-
       <div className="contact__inner container--narrow">
         <span className="specimen-label">Field annotation · Section VIII</span>
         <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>

@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { experience } from '../data/experience';
-import { BotanicalScene } from './BotanicalScene';
 import './Experience.css';
 
 function formatDate(d: string | null) {
@@ -75,11 +74,6 @@ export const ExperienceSection: React.FC = () => {
 
   return (
     <section id="experience" className="experience">
-      {/* Decorative botanical layer */}
-      <div className="experience__botany" aria-hidden="true">
-        <BotanicalScene />
-      </div>
-
       <div className="experience__header container--narrow">
         <span className="specimen-label">Field annotation · Section III</span>
         <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>

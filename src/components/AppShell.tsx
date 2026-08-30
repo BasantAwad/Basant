@@ -1,5 +1,7 @@
 import React from 'react';
 import { Navigation } from './Navigation';
+import { BotanicalScene } from './BotanicalScene';
+import { DustCanvas } from './DustCanvas';
 import { HeroSection } from './HeroSection';
 import { AboutSection } from './AboutSection';
 import { ExperienceSection } from './ExperienceSection';
@@ -15,7 +17,12 @@ export const AppShell: React.FC = () => {
   return (
     <div className="app-shell">
       <Navigation />
-      <main>
+      <main className="app-shell__main">
+        {/* Full-page botanical overlay — one scene driven by document scroll */}
+        <div className="app-shell__botany" aria-hidden="true">
+          <BotanicalScene />
+          <DustCanvas />
+        </div>
         <HeroSection />
         <AboutSection />
         <ExperienceSection />

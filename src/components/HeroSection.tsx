@@ -1,7 +1,5 @@
 import React from 'react';
 import { personal } from '../data/personal';
-import { BotanicalScene } from './BotanicalScene';
-import { DustCanvas } from './DustCanvas';
 import './Hero.css';
 
 export const HeroSection: React.FC = () => {
@@ -11,14 +9,6 @@ export const HeroSection: React.FC = () => {
       className="hero"
       aria-label="Introduction"
     >
-      {/* Botanical background — decorative, aria-hidden */}
-      <div className="hero__botany" aria-hidden="true">
-        <BotanicalScene />
-        <DustCanvas />
-        {/* Substrate hint — soil line at bottom */}
-        <div className="hero__soil" aria-hidden="true" />
-      </div>
-
       {/* Content layer */}
       <div className="hero__content container--narrow">
         <div className="hero__label-bar">

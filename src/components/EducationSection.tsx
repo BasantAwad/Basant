@@ -1,6 +1,5 @@
 import React from 'react';
 import { education, certifications } from '../data/education';
-import { BotanicalScene } from './BotanicalScene';
 import './Education.css';
 
 function CertCard({ cert }: { cert: (typeof certifications)[0] }) {
@@ -20,11 +19,6 @@ function CertCard({ cert }: { cert: (typeof certifications)[0] }) {
 export const EducationSection: React.FC = () => {
   return (
     <section id="education" className="education">
-      {/* Cultivation-stage botanical layer */}
-      <div className="education__botany" aria-hidden="true">
-        <BotanicalScene />
-      </div>
-
       <div className="education__header container--narrow">
         <span className="specimen-label">Field annotation · Section VI</span>
         <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>

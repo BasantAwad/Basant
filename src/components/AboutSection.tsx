@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { personal } from '../data/personal';
-import { BotanicalScene } from './BotanicalScene';
 import './About.css';
 
 export const AboutSection: React.FC = () => {
@@ -23,11 +22,6 @@ export const AboutSection: React.FC = () => {
 
   return (
     <section id="about" className="about">
-      {/* Botanical accent layer */}
-      <div className="about__botany" aria-hidden="true">
-        <BotanicalScene />
-      </div>
-
       <div className="container--narrow about__inner" ref={containerRef as React.RefObject<HTMLDivElement>}>
         <span className="specimen-label">Field annotation · Section II</span>
         <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>

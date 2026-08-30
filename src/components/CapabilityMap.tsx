@@ -1,6 +1,5 @@
 import React from 'react';
 import { capabilitySections, capabilities, capabilityAnchor } from '../data/capabilities';
-import { BotanicalScene } from './BotanicalScene';
 import { useScrollProgress, localProgress } from '../hooks/useScrollProgress';
 import './Capabilities.css';
 
@@ -85,10 +84,6 @@ export const CapabilityMap: React.FC = () => {
   const { progress } = useScrollProgress();
   return (
     <section id="capabilities" className="capabilities">
-      <div className="capabilities__botany" aria-hidden="true">
-        <BotanicalScene />
-      </div>
-
       <div className="capabilities__header container--narrow">
         <span className="specimen-label">Field annotation · Section V</span>
         <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>

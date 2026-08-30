@@ -1,6 +1,4 @@
-import React from 'react';
 import { projects } from '../data/projects';
-import { BotanicalScene } from './BotanicalScene';
 import './Projects.css';
 
 type ProjectCardProps = {
@@ -81,11 +79,6 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 export const ProjectArchive: React.FC = () => {
   return (
     <section id="projects" className="projects">
-      {/* Decorative botanical layer */}
-      <div className="projects__botany" aria-hidden="true">
-        <BotanicalScene />
-      </div>
-
       <div className="projects__header container--narrow">
         <span className="specimen-label">Field annotation · Section IV</span>
         <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
