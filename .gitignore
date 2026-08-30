@@ -12,8 +12,7 @@ dist
 dist-ssr
 *.local
 
-# Screenshots and test artifacts
-*.png
+# Screenshots and test artifacts (BUT NOT public/flowers/ — those are deployed assets)
 tests/qa.cjs
 tests/qa.js
 tests/verify-*.mjs
