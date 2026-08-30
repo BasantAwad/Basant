@@ -48,3 +48,4 @@ The `src/data` modules hold editable content; `src/components` contains the page
 ## Deployment
 
 The project is prepared for GitHub Pages at [basantawad.github.io/Basant](https://basantawad.github.io/Basant/).
+# last modified Mon, Aug 31, 2026  2:24:03 AM
