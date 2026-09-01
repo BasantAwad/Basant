@@ -151,10 +151,38 @@
   max-width: 100%;
 }
 
-.edu-block__certs {
+.edu-block__certs-header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.edu-block__cert-count {
+  font-size: 0.62rem;
+  font-family: var(--font-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ivory-faint);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+}
+
+.edu-block__certs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-3);
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: var(--space-2);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-charcoal) transparent;
+}
+
+@media (max-width: 600px) {
+  .edu-block__certs { grid-template-columns: 1fr; }
 }
 
 /* ─── Certification card ─────────────────────────────────────────────────────── */
@@ -164,6 +192,8 @@
   border-radius: var(--radius-md);
   padding: var(--space-3) var(--space-4);
   transition: border-color 200ms var(--ease-out);
+  display: flex;
+  flex-direction: column;
 }
 
 .cert-card:hover { border-color: rgba(138, 58, 82, 0.35); }
@@ -188,20 +218,52 @@
   font-weight: 500;
   color: var(--color-ivory);
   margin-bottom: var(--space-1);
+  line-height: 1.35;
 }
 
 .cert-card__issuer {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--color-fuchsia);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
+  line-height: 1.35;
+}
+
+.cert-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-2);
+  border-top: 1px solid rgba(255,255,255,0.04);
 }
 
 .cert-card__date {
-  font-size: 0.62rem;
+  font-size: 0.60rem;
   font-family: var(--font-sans);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-ivory-faint);
+}
+
+.cert-card__credential {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.60rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-warm-accent);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 180ms var(--ease-out), opacity 180ms var(--ease-out);
+  opacity: 0.8;
+}
+
+.cert-card__credential:hover {
+  color: var(--color-ivory);
+  opacity: 1;
 }
 
 /* ─── Footer ─────────────────────────────────────────────────────────────────── */

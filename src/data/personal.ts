@@ -26,6 +26,7 @@ export const navigation = [
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
+  { id: 'news', label: 'News' },
   { id: 'capabilities', label: 'Capabilities' },
   { id: 'education', label: 'Education' },
   { id: 'contact', label: 'Contact' },

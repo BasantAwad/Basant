@@ -1,0 +1,367 @@
+/* ─── News / Highlights Section ─────────────────────────────────────────────── */
+
+.news {
+  position: relative;
+  padding: var(--space-20) 0 var(--space-16);
+  overflow: hidden;
+}
+
+/* Ambient glow behind the fan */
+.news::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 900px;
+  height: 400px;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%,
+    rgba(138, 58, 82, 0.06) 0%,
+    transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────────── */
+.news__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.news__header .specimen-label {
+  display: block;
+  margin-bottom: var(--space-3);
+}
+
+.news__heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 300;
+  margin-bottom: var(--space-4);
+}
+
+.news__intro {
+  font-size: 0.95rem;
+  color: var(--color-ivory-dim);
+  max-width: 52ch;
+  margin-inline: auto;
+}
+
+/* ─── Stage ──────────────────────────────────────────────────────────────────── */
+.news__stage {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Track (perspective container) ─────────────────────────────────────────── */
+.news__track {
+  position: absolute;
+  inset: 0;
+  perspective: 1400px;
+  perspective-origin: 50% 45%;
+}
+
+/* ─── Fan card wrapper ───────────────────────────────────────────────────────── */
+.news-fan-card {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 188px;
+  transition:
+    transform  660ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity    660ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+/* ─── Visual card — Flower Blooming GIF ──────────────────────────────────────── */
+.news-fan-card__visual {
+  width: 188px;
+  height: 310px;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: filter 400ms var(--ease-out);
+}
+
+/* The actual flower image */
+.news-fan-card__flower {
+  position: absolute;
+  inset: -30px; 
+  width: calc(100% + 60px);
+  height: calc(100% + 60px);
+  transform: scale(2.8);
+  object-fit: contain; /* Don't crop the flower */
+  mix-blend-mode: screen; /* removes the black background */
+  opacity: 0.85; /* slightly transparent so background shows through */
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 400ms ease, filter 400ms ease;
+}
+
+/* Dim the inactive flowers slightly */
+.news-fan-card:not(.news-fan-card--active) .news-fan-card__flower {
+  opacity: 0.5;
+  filter: grayscale(0.5);
+}
+
+
+
+/* Glow orb */
+.news-fan-card__orb {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  filter: blur(52px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Caption below the visual card ─────────────────────────────────────────── */
+.news-fan-card__caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.news-fan-card__num {
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-ivory-faint);
+  letter-spacing: 0.04em;
+}
+
+.news-fan-card__cap-label {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ivory-dim);
+}
+
+/* ─── Arrow buttons ──────────────────────────────────────────────────────────── */
+.news__arrow {
+  position: absolute;
+  top: 70%;
+  translate: 0 -50%;
+  z-index: 30;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(10, 14, 18, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-ivory-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  backdrop-filter: blur(8px);
+}
+
+.news__arrow--left  { left: clamp(8px, 2vw, 32px); }
+.news__arrow--right { right: clamp(8px, 2vw, 32px); }
+
+.news__arrow:hover {
+  background: rgba(138, 58, 82, 0.18);
+  border-color: var(--color-fuchsia-deep);
+  color: var(--color-ivory);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.news__arrow--left:hover  { transform: translateY(-50%) scale(1.08) translateX(-1px); }
+.news__arrow--right:hover { transform: translateY(-50%) scale(1.08) translateX(1px); }
+
+/* ─── Detail panel ───────────────────────────────────────────────────────────── */
+.news__detail {
+  margin-top: var(--space-8);
+  /* animate on key change */
+  animation: detail-fade-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes detail-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.news__detail-inner {
+  background: rgba(10, 14, 18, 0.70);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  backdrop-filter: blur(12px);
+}
+
+.news__detail-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+  font-weight: 400;
+  color: var(--color-ivory);
+  line-height: 1.3;
+  margin-bottom: var(--space-3);
+}
+
+.news__detail-excerpt {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--color-ivory-dim);
+  max-width: 100%;
+}
+
+.news__detail-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  flex-wrap: wrap;
+}
+
+.news__detail-author-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.news__detail-author {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-ivory-dim);
+  line-height: 1.3;
+}
+
+.news__detail-date {
+  font-size: 0.60rem;
+  font-family: var(--font-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ivory-faint);
+}
+
+.news__detail-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-ivory);
+  background: rgba(106, 40, 64, 0.20);
+  border: 1px solid var(--color-fuchsia-deep);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    transform 180ms var(--ease-out);
+}
+
+.news__detail-cta:hover {
+  background: rgba(138, 58, 82, 0.30);
+  border-color: var(--color-fuchsia);
+  transform: translateY(-1px);
+}
+
+/* ─── Dot indicators ─────────────────────────────────────────────────────────── */
+.news__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+.news__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-charcoal);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background 300ms var(--ease-out),
+    width 300ms var(--ease-out),
+    border-radius 300ms var(--ease-out);
+}
+
+.news__dot:hover {
+  background: var(--color-ivory-faint);
+}
+
+.news__dot--active {
+  background: var(--color-warm-accent);
+  width: 20px;
+  border-radius: 999px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .news__stage { 
+    height: 410px; 
+  }
+  
+  /* Fallback to simple fade carousel to prevent lag on mobile */
+  .news__track {
+    perspective: none;
+  }
+  .news-fan-card {
+    transform: translate(-50%, 0) scale(1) !important;
+    opacity: 0 !important;
+    transition: opacity 500ms var(--ease-out) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    width: 220px;
+  }
+  .news-fan-card--active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 10 !important;
+  }
+  .news-fan-card__visual { 
+    width: 100%; 
+    height: 310px; 
+  }
+  .news__arrow {
+    top: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .news__stage { 
+    height: 370px; 
+  }
+  .news-fan-card { 
+    width: 180px; 
+  }
+  .news-fan-card__visual { 
+    height: 250px; 
+  }
+  .news__detail-inner { 
+    padding: var(--space-4); 
+  }
+}

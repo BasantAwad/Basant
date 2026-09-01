@@ -6,6 +6,7 @@ import { HeroSection } from './HeroSection';
 import { AboutSection } from './AboutSection';
 import { ExperienceSection } from './ExperienceSection';
 import { ProjectArchive } from './ProjectArchive';
+import { NewsSection } from './NewsSection';
 import { CapabilityMap } from './CapabilityMap';
 import { EducationSection } from './EducationSection';
 import { GitHubLaboratory } from './GitHubLaboratory';
@@ -25,6 +26,7 @@ export const AppShell: React.FC = () => {
         <AboutSection />
         <ExperienceSection />
         <ProjectArchive />
+        <NewsSection />
         <CapabilityMap />
         <EducationSection />
         <GitHubLaboratory />
