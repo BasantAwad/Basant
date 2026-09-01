@@ -42,6 +42,35 @@
   color: var(--color-sage);
 }
 
+/* ─── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero {
+    /* Stronger, wider vignette on mobile so text doesn't clash with background flowers */
+    background:
+      radial-gradient(ellipse 90% 80% at 50% 50%,
+        rgba(7, 9, 12, 0.90) 0%,
+        rgba(7, 9, 12, 0.75) 60%,
+        rgba(7, 9, 12, 0.40) 100%);
+  }
+  .hero__content {
+    max-width: 100%;
+    padding: 0 var(--space-3);
+  }
+  .hero__title-lead {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+  }
+  .hero__intro {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+  .hero__tagline {
+    font-size: 1.05rem;
+  }
+}
+
 /* ─── Identity ─────────────────────────────────────────────────────────────── */
 .hero__identity {
   margin-bottom: var(--space-6);
@@ -59,7 +88,7 @@
 }
 
 .hero__name {
-  font-size: clamp(3.2rem, 8vw, 6rem);
+  font-size: clamp(2rem, 10vw, 6rem);
   font-weight: 300;
   letter-spacing: -0.02em;
   line-height: 1.02;
@@ -208,9 +237,4 @@
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(22px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 767px) {
-  .hero { padding-top: var(--space-16); }
-  .hero__intro { font-size: 0.98rem; }
 }

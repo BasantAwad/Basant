@@ -25,7 +25,6 @@ export const HeroSection: React.FC = () => {
         </div>
 
         <p className="hero__intro">
-          I design reliable systems that connect data, intelligence, and people.
           I am a backend engineer working across scalable architectures, AI-integrated products,
           distributed systems, and cloud infrastructure — with the patience of someone who
           understands that good systems grow slowly, from strong foundations.

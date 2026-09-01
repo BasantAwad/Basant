@@ -26,7 +26,7 @@
   opacity: 0;
   transform: var(--pre-transform);
   transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6)) brightness(0.8) contrast(1.1) saturate(0.85);
+  will-change: transform, opacity;
 }
 
 .botanical-canopy__flower.botanical-img--visible {
@@ -42,7 +42,7 @@
   opacity: 0;
   transform: var(--pre-transform);
   transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6)) brightness(0.8) contrast(1.1) saturate(0.85);
+  will-change: transform, opacity;
   z-index: 3;
 }
 

@@ -56,8 +56,8 @@ function generateBouquet(yPct: number) {
   ];
 }
 
-const LEFT_FLOWERS = Array.from({ length: 19 }, (_, i) => (i + 1) * 5).flatMap(yPct => generateBouquet(yPct));
-const RIGHT_FLOWERS = Array.from({ length: 19 }, (_, i) => (i + 1) * 5).flatMap(yPct => generateBouquet(yPct));
+const LEFT_FLOWERS = Array.from({ length: 6 }, (_, i) => (i + 1) * 15).flatMap(yPct => generateBouquet(yPct));
+const RIGHT_FLOWERS = Array.from({ length: 6 }, (_, i) => (i + 1) * 15).flatMap(yPct => generateBouquet(yPct));
 
 // ─── Hook: trigger bloom when element scrolls into view ─────────────────────
 function useScrollBloom(containerRef: React.RefObject<HTMLDivElement | null>) {
@@ -88,7 +88,16 @@ function useScrollBloom(containerRef: React.RefObject<HTMLDivElement | null>) {
 
 export const BotanicalScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
   useScrollBloom(containerRef);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <div className="botanical-scene" ref={containerRef} aria-hidden="true">
@@ -134,48 +143,54 @@ export const BotanicalScene: React.FC = () => {
         }} 
       />
 
-
-      {/* Left Edge Flowers */}
-      {LEFT_FLOWERS.map((fl, i) => (
-        <img
-          key={`left-${i}`}
-          src={fl.src}
-          alt=""
-          className="botanical-img botanical-edge botanical-edge--left"
-          style={{
-            top: `${fl.y}%`,
-            left: `${fl.offsetX}px`,
-            width: `${fl.size}px`,
-            '--final-transform': `translateY(-50%) rotate(${fl.rot}deg) scale(1)`,
-            '--pre-transform': `translateY(-50%) rotate(${fl.rot}deg) scale(0.2)`,
-            '--bloom-delay': '0s', 
-            '--bloom-opacity': '0.85',
-          } as React.CSSProperties}
-          loading="lazy"
-          decoding="async"
-        />
-      ))}
-
-      {/* Right Edge Flowers */}
-      {RIGHT_FLOWERS.map((fl, i) => (
-        <img
-          key={`right-${i}`}
-          src={fl.src}
-          alt=""
-          className="botanical-img botanical-edge botanical-edge--right"
-          style={{
-            top: `${fl.y}%`,
-            right: `${fl.offsetX}px`,
-            width: `${fl.size}px`,
-            '--final-transform': `translateY(-50%) scaleX(-1) rotate(${fl.rot}deg) scale(1)`,
-            '--pre-transform': `translateY(-50%) scaleX(-1) rotate(${fl.rot}deg) scale(0.2)`,
-            '--bloom-delay': '0s',
-            '--bloom-opacity': '0.85',
-          } as React.CSSProperties}
-          loading="lazy"
-          decoding="async"
-        />
-      ))}
+      {/* Side cascading flowers (Only rendered on desktop for performance) */}
+      {!isMobile && (
+        <>
+          <div className="botanical-sides botanical-sides--left">
+            {LEFT_FLOWERS.map((fl, i) => (
+              <img
+                key={`left-${i}`}
+                src={fl.src}
+                className="botanical-img botanical-edge botanical-edge--left"
+                style={{
+                  top: `${fl.y}%`,
+                  marginLeft: `${fl.offsetX}px`,
+                  width: `${fl.size}px`,
+                  height: 'auto',
+                  '--pre-transform': `translateX(-50px) rotate(${fl.rot - 15}deg) scale(0.8)`,
+                  '--final-transform': `translateX(0) rotate(${fl.rot}deg) scale(1)`,
+                  '--bloom-opacity': '1',
+                  '--bloom-delay': `${Math.random() * 0.4}s`
+                } as React.CSSProperties}
+                alt=""
+                loading="lazy"
+              />
+            ))}
+          </div>
+          
+          <div className="botanical-sides botanical-sides--right">
+            {RIGHT_FLOWERS.map((fl, i) => (
+              <img
+                key={`right-${i}`}
+                src={fl.src}
+                className="botanical-img botanical-edge botanical-edge--right"
+                style={{
+                  top: `${fl.y}%`,
+                  marginRight: `${fl.offsetX}px`,
+                  width: `${fl.size}px`,
+                  height: 'auto',
+                  '--pre-transform': `translateX(50px) rotate(${fl.rot + 15}deg) scale(-0.8, 0.8)`,
+                  '--final-transform': `translateX(0) rotate(${fl.rot}deg) scale(-1, 1)`,
+                  '--bloom-opacity': '1',
+                  '--bloom-delay': `${Math.random() * 0.4}s`
+                } as React.CSSProperties}
+                alt=""
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
