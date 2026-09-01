@@ -18,7 +18,8 @@ export const DustCanvas: React.FC = () => {
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (prefersReduced || isMobile) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;

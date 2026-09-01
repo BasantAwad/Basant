@@ -182,4 +182,17 @@
 @media (max-width: 767px) {
   .navigation__links { display: none; }
   .navigation__menu-btn { display: flex; }
+  
+  /* Disable expensive backdrop filters on mobile for buttery smooth scrolling */
+  .navigation--scrolled {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: rgba(7, 9, 12, 1);
+  }
+  
+  .mobile-menu {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: rgba(7, 9, 12, 1);
+  }
 }
