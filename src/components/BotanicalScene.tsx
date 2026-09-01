@@ -34,9 +34,9 @@ const CANOPY_FLOWERS = [
   { src: 'flowers/processed/roses-bloom_53876-89175.png',                  x: 60,  y: 320, rot: -30, size: 300, side: 'right' },
   { src: 'flowers/processed/baroque-bouquet-beautiful-garden-flowers-leaves-black-background-luxurious-pink-white-peonies-roses-tulips-luxury-design-172318794.png', x: 200, y: 300, rot: 15, size: 350, side: 'right' },
   
-  // Fill the circled gap on the right side
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 450, y: 180, rot: -15, size: 400, side: 'right' },
-  { src: 'flowers/processed/138813-blossom-real-flower-hq-image-free.png', x: 600, y: 150, rot: 210, size: 380, side: 'right' }, // Flipped (+180)
+  // Fill the circled gap on the right side (2 moved to left side for balance)
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 300, y: 450, rot: -15, size: 400, side: 'left' },
+  { src: 'flowers/processed/138813-blossom-real-flower-hq-image-free.png', x: 500, y: 400, rot: 210, size: 380, side: 'left' }, // Flipped (+180)
   { src: 'flowers/processed/baroque-bouquet-beautiful-garden-flowers-leaves-black-background-luxurious-pink-white-peonies-roses-tulips-luxury-design-172318794.png', x: 400, y: 330, rot: 10, size: 360, side: 'right' },
   { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 550, y: 280, rot: -20, size: 300, side: 'right' },
   { src: 'flowers/processed/138813-blossom-real-flower-hq-image-free.png', x: 750, y: 120, rot: 225, size: 340, side: 'right' }, // Flipped (+180)
