@@ -3,15 +3,28 @@
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
+  /* Required so botanical-scene's position:absolute is relative to this */
+  position: relative;
+  overflow-x: hidden;
 }
 
 .app-shell main {
   flex: 1 0 auto;
+  /* ABOVE the botanical scene (z-index: 0) */
   position: relative;
-  z-index: 1;
+  z-index: 2;
+}
+
+/* Navigation stays at top */
+header.navigation {
+  position: fixed;
+  z-index: 100;
 }
 
 /* Section spacing rhythm */
 section[id] {
   scroll-margin-top: 80px;
+  /* All content above flowers */
+  position: relative;
+  z-index: 2;
 }

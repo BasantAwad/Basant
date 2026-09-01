@@ -120,3 +120,104 @@
 @media (max-width: 640px) {
   .capabilities__groups { grid-template-columns: 1fr; }
 }
+
+/* ─── Classes used in CapabilityMap.tsx ────────────────────────────────────── */
+.capabilities__header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.capabilities__heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 300;
+  text-align: center;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.capabilities__intro {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-ivory-dim);
+  max-width: 66ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.capabilities__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-10);
+}
+
+.cap-cluster {
+  background: rgba(10, 14, 18, 0.62);
+  border: 1px solid rgba(26, 35, 32, 0.5);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  transition: border-color 280ms var(--ease-out), transform 260ms var(--ease-out);
+  /* Override scroll-driven opacity: ensure always visible */
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.cap-cluster:hover {
+  border-color: rgba(106, 42, 64, 0.4);
+  transform: translateY(-2px) !important;
+}
+
+.cap-cluster__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid rgba(26, 35, 32, 0.35);
+}
+
+.cap-cluster__header .specimen-label {
+  color: var(--color-fuchsia);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+}
+
+.cap-cluster__icon {
+  color: var(--color-sage);
+  display: flex;
+  align-items: center;
+}
+
+.cap-cluster__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+}
+
+.cap-chip {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--color-ivory-dim);
+  background: rgba(26, 35, 32, 0.45);
+  border: 1px solid rgba(42, 60, 42, 0.35);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 100px;
+  transition: border-color 200ms var(--ease-out), color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+  white-space: nowrap;
+}
+
+.cap-chip:hover {
+  border-color: rgba(138, 58, 82, 0.45);
+  color: var(--color-ivory);
+  background: rgba(42, 26, 36, 0.35);
+}
+
+.capabilities__footer {
+  text-align: center;
+  margin-top: var(--space-10);
+  padding-top: var(--space-5);
+  border-top: 1px solid rgba(26, 35, 32, 0.25);
+}

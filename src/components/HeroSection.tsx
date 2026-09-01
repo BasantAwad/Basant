@@ -11,10 +11,6 @@ export const HeroSection: React.FC = () => {
     >
       {/* Content layer */}
       <div className="hero__content container--narrow">
-        <div className="hero__label-bar">
-          <span className="specimen-label">Specimen NB-000 · Field record</span>
-          <span className="coordinates">Alexandria, Egypt · 31.2001° N, 29.9187° E</span>
-        </div>
 
         <div className="hero__identity">
           <p className="hero__title-lead">
@@ -29,8 +25,8 @@ export const HeroSection: React.FC = () => {
         </div>
 
         <p className="hero__intro">
-          Basant designs reliable systems that connect data, intelligence, and people.
-          A backend engineer working across scalable architectures, AI-integrated products,
+          I design reliable systems that connect data, intelligence, and people.
+          I am a backend engineer working across scalable architectures, AI-integrated products,
           distributed systems, and cloud infrastructure — with the patience of someone who
           understands that good systems grow slowly, from strong foundations.
         </p>
@@ -56,13 +52,13 @@ export const HeroSection: React.FC = () => {
         </div>
 
         <p className="hero__scroll-cue">
-          <span className="specimen-label">Scroll to enter the garden</span>
+          <span className="specimen-label">Scroll to explore</span>
           <span className="hero__scroll-line" aria-hidden="true" />
         </p>
       </div>
 
       {/* Data-link anchor — offset so the hero fills first viewport */}
-      <a href="#home" className="sr-only" tabIndex={-1}>
+      <a href="#home" className="visually-hidden" tabIndex={-1}>
         Skip to top
       </a>
     </section>

@@ -24,7 +24,7 @@ function RepoRow({ repo, idx }: { repo: (typeof githubRepos)[0]; idx: number }) 
       </a>
       {isHighlighted && (
         <span className="repo-row__accent" aria-hidden="true">
-          <span className="specimen-label">Featured</span>
+          Featured
         </span>
       )}
     </div>
@@ -40,17 +40,11 @@ export const GitHubLaboratory: React.FC = () => {
   return (
     <section id="github" className="github-lab">
       <div className="github-lab__header container--narrow">
-        <span className="specimen-label">Field annotation · Section VII</span>
-        <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
-          Laboratory · experiments, coursework, prototypes
-        </span>
-
         <h2 className="github-lab__heading">GitHub laboratory</h2>
         <p className="github-lab__intro">
           {githubLaboratory.intro}
         </p>
         <div className="github-lab__stats">
-          <span className="specimen-number">{'⌘'}</span>
           <span className="github-lab__total">
             {githubRepos.length} public repositories
           </span>
@@ -61,10 +55,7 @@ export const GitHubLaboratory: React.FC = () => {
         {/* Featured projects */}
         <div className="github-lab__group">
           <span className="github-lab__group-label">
-            <span className="specimen-label">Featured specimens</span>
-            <span className="coordinates" style={{ marginLeft: '0.5rem' }}>
-              Strongest projects
-            </span>
+            Featured projects
           </span>
           <div className="github-lab__rows">
             {featured.map((repo, idx) => (
@@ -76,10 +67,7 @@ export const GitHubLaboratory: React.FC = () => {
         {/* Full index */}
         <div className="github-lab__group">
           <span className="github-lab__group-label">
-            <span className="specimen-label">Complete index</span>
-            <span className="coordinates" style={{ marginLeft: '0.5rem' }}>
-              {githubRepos.length} repositories
-            </span>
+            Complete index ({githubRepos.length} repositories)
           </span>
           <div className="github-lab__rows">
             {githubRepos.map((repo, idx) => (
@@ -89,7 +77,6 @@ export const GitHubLaboratory: React.FC = () => {
 
           {/* Additional note for Glow */}
           <p className="github-lab__note">
-            <span className="specimen-number">{'⌘'}</span>
             {'Glow'} is included as an additional GitHub project; its description is pending confirmation.
           </p>
         </div>
@@ -102,11 +89,8 @@ export const GitHubLaboratory: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="specimen-label">View all on GitHub</span>
+          View all on GitHub
         </a>
-        <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
-          Last indexed · 30 August 2026
-        </span>
       </div>
     </section>
   );

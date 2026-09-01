@@ -159,24 +159,24 @@
 .project-card__challenge,
 .project-card__solution,
 .project-card__outcome {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   line-height: 1.6;
   color: var(--color-ivory-dim);
-  margin-bottom: var(--space-2);
-  display: flex;
+  margin-bottom: var(--space-3);
+  display: grid;
+  grid-template-columns: 4.8em 1fr;
   gap: var(--space-2);
-  align-items: flex-start;
+  align-items: start;
 }
 
-.project-card__challenge .specimen-label { color: var(--color-crimson); min-width: 4.5em; }
-.project-card__solution .specimen-label { color: var(--color-fuchsia); min-width: 4.5em; }
-.project-card__outcome .specimen-label { color: var(--color-ivory-faint); min-width: 4.5em; }
+.project-card__challenge .specimen-label { color: var(--color-crimson); }
+.project-card__solution .specimen-label  { color: var(--color-fuchsia); }
+.project-card__outcome  .specimen-label  { color: var(--color-ivory-faint); }
 
 .project-card__challenge .specimen-label ~ *,
 .project-card__solution .specimen-label ~ *,
 .project-card__outcome .specimen-label ~ * {
   color: var(--color-ivory-dim);
-  flex: 1;
 }
 
 .project-card__outcome { color: var(--color-ivory); }

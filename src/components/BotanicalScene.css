@@ -1,85 +1,61 @@
+/* BotanicalScene.css */
+
 .botanical-scene {
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* ─── Canopy (Top Edge) ──────────────────────────────────────────────────── */
+.botanical-canopy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  z-index: 2;
+}
+
+.botanical-canopy__flower {
+  position: absolute;
+  opacity: 0;
+  transform: var(--pre-transform);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6)) brightness(0.8) contrast(1.1) saturate(0.85);
+}
+
+.botanical-canopy__flower.botanical-img--visible {
+  opacity: var(--bloom-opacity);
+  transform: var(--final-transform);
+  transition-delay: var(--bloom-delay);
+}
+
+
+/* ─── Edge Flowers ───────────────────────────────────────────────────────── */
+.botanical-edge {
+  position: absolute;
+  opacity: 0;
+  transform: var(--pre-transform);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6)) brightness(0.8) contrast(1.1) saturate(0.85);
   z-index: 3;
-  background: transparent;
-  overflow: visible;
 }
 
-.botanical-img {
-  position: absolute;
-  will-change: transform, opacity;
-  pointer-events: none;
-  opacity: 0;
-  animation: botanicalBloom 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: calc(var(--d, 0s) * 0.5);
+.botanical-edge--left {
+  left: 20px;
 }
 
-.botanical-leaf {
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.45));
-  image-rendering: auto;
+.botanical-edge--right {
+  right: 20px;
 }
 
-@keyframes botanicalBloom {
-  0% {
-    opacity: 0;
-    transform: scale(0.2) rotate(0deg);
-  }
-  100% {
-    opacity: var(--op, 0.88);
-    transform: var(--tr, scale(1) rotate(0deg));
-  }
-}
-
-.botanical-stem-video {
-  position: absolute;
-  left: 0%;
-  top: 18%;
-  width: 80px;
-  height: auto;
-  transform-origin: 50% 100%;
-  opacity: 0;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  object-fit: cover;
-  object-position: center;
-  will-change: transform, opacity;
-  animation:
-    stemFadeIn 0.6s ease-out 0.3s forwards,
-    growingStem 6s ease-out 0.3s infinite;
-  display: block;
-}
-
-@keyframes stemFadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 0.8; }
-}
-
-@keyframes growingStem {
-  0%   { transform: scale(0.12) rotate(-6deg); }
-  15%  { transform: scale(0.35) rotate(-7deg); }
-  35%  { transform: scale(0.55) rotate(-8deg); }
-  60%  { transform: scale(0.75) rotate(-9deg); }
-  85%  { transform: scale(0.9)  rotate(-10deg); }
-  100% { transform: scale(1.0) rotate(-10deg); }
-}
-
-@media (max-width: 768px) {
-  .botanical-scene { z-index: 1; }
-  .botanical-img { --op: 0.6; transform: scale(0.5) !important; }
-  .botanical-leaf { --op: 0.45; filter: drop-shadow(0 0.5px 1px rgba(0,0,0,0.3)); }
-  .botanical-stem-video { width: 50px; opacity: 0.6; transform: scale(0.35) rotate(-8deg) !important; }
-}
-
-@media (max-width: 480px) {
-  .botanical-scene { z-index: 1; }
-  .botanical-img { --op: 0.45; transform: scale(0.38) !important; }
-  .botanical-leaf { --op: 0.35; filter: drop-shadow(0 0.5px 1px rgba(0,0,0,0.2)); }
-  .botanical-stem-video { width: 35px; opacity: 0.45; transform: scale(0.28) rotate(-8deg) !important; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .botanical-img, .botanical-stem-video { animation: none; opacity: var(--op, 0.7) !important; }
+.botanical-edge.botanical-img--visible {
+  opacity: var(--bloom-opacity);
+  transform: var(--final-transform);
+  transition-delay: var(--bloom-delay);
 }

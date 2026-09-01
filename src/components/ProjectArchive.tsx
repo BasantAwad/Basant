@@ -22,20 +22,14 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 
   return (
     <article className="project-card" style={{ '--project-index': index } as React.CSSProperties}>
-      {/* Specimen header */}
+      {/* Card Header */}
       <div className="project-card__header">
-        <span className="specimen-number">{project.specimen}</span>
         <span className="project-card__category">{project.category}</span>
       </div>
 
       <h3 className="project-card__name">{project.name}</h3>
       <p className="project-card__tagline">{project.tagline}</p>
 
-      {/* Botanical metaphor accent */}
-      <div className="project-card__metaphor">
-        <span className="specimen-label">Visual metaphor</span>
-        <span className="project-card__metaphor-text">{project.species}</span>
-      </div>
 
       {/* Technologies */}
       <div className="project-card__tech">
@@ -47,8 +41,6 @@ function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
       </div>
 
-      {/* Coordinates */}
-      <p className="coordinates">{project.coordinates}</p>
 
       {/* Narrative */}
       <div className="project-card__narrative">
@@ -80,17 +72,11 @@ export const ProjectArchive: React.FC = () => {
   return (
     <section id="projects" className="projects">
       <div className="projects__header container--narrow">
-        <span className="specimen-label">Field annotation · Section IV</span>
-        <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
-          Flowers · completed projects and meaningful outcomes
-        </span>
-
         <h2 className="projects__heading">Selected projects</h2>
         <p className="projects__intro">
-          Five projects presented as specimens in a modern portfolio archive.
+          Five projects presented as a modern portfolio archive.
           Each card records the project name, category, technologies, challenge,
-          solution, and outcome where available. A GitHub link is shown only when
-          publicly confirmed; missing links are marked as pending replacement.
+          solution, and outcome where available.
         </p>
       </div>
 
@@ -98,13 +84,6 @@ export const ProjectArchive: React.FC = () => {
         {projects.map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index} />
         ))}
-      </div>
-
-      <div className="projects__footer">
-        <span className="specimen-label">Archive reference · BA-PRJ-2026</span>
-        <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
-          5 case studies · 17 public repositories on GitHub
-        </span>
       </div>
     </section>
   );

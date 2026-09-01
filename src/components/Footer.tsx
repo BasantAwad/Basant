@@ -11,9 +11,6 @@ export const Footer: React.FC = () => {
           <span className="site-footer__brand-name">Basant Awad Mohamed</span>
         </div>
 
-        <p className="site-footer__tagline">
-          Nocturne Botanica · A garden in progress
-        </p>
 
         <p className="site-footer__meta">
           Backend Software Engineer · Alexandria, Egypt · Open to relocation
@@ -32,12 +29,8 @@ export const Footer: React.FC = () => {
         </div>
 
         <p className="site-footer__legal">
-          A personal portfolio. All content reflects verified CV information as of 30 August 2026.
-          Botanical illustration is decorative and symbolic; no literal claims are made about plants
-          in relation to engineering work.
+          A personal portfolio. All content reflects verified CV information as of 2026.
         </p>
-
-        <span className="specimen-number">{'—'} Specimen NB-000 {'—'}</span>
       </div>
     </footer>
   );

@@ -16,18 +16,11 @@ function EntryCard({ entry }: { entry: (typeof experience)[0] }) {
   return (
     <article className={`timeline-entry timeline-entry--${entry.type}`}>
       <div className="timeline-entry__marker" aria-hidden="true">
-        <span className="specimen-number">{entry.specimen}</span>
       </div>
 
       <div className="timeline-entry__body">
         <div className="timeline-entry__meta">
           <span className="timeline-entry__type">{typeLabel}</span>
-          {entry.species && (
-            <span className="timeline-entry__species">
-              <span className="specimen-label">Associate species</span>
-              <span style={{ margin: '0 0.35em' }}>{entry.species}</span>
-            </span>
-          )}
         </div>
 
         <h3 className="timeline-entry__role">{entry.role}</h3>
@@ -75,16 +68,9 @@ export const ExperienceSection: React.FC = () => {
   return (
     <section id="experience" className="experience">
       <div className="experience__header container--narrow">
-        <span className="specimen-label">Field annotation · Section III</span>
-        <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
-          Stem · professional growth
-        </span>
-
         <h2 className="experience__heading">Experience</h2>
         <p className="experience__intro">
           A brief timeline of work, teaching, and community contributions.
-          Each entry is marked with a specimen number and an associate botanical species
-          used only as a metaphorical accent — not a literal description of the work.
         </p>
       </div>
 
@@ -92,13 +78,6 @@ export const ExperienceSection: React.FC = () => {
         {experience.map((entry) => (
           <EntryCard key={entry.id} entry={entry} />
         ))}
-      </div>
-
-      <div className="experience__footer">
-        <span className="specimen-label">Document reference · BA-EXP-2026</span>
-        <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
-          Verified against CV and public GitHub profile
-        </span>
       </div>
     </section>
   );

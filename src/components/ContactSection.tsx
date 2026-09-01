@@ -8,18 +8,14 @@ export const ContactSection: React.FC = () => {
   return (
     <section id="contact" className="contact">
       <div className="contact__inner container--narrow">
-        <span className="specimen-label">Field annotation · Section VIII</span>
-        <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
-          Clearing · final bloom
-        </span>
 
         <h2 className="contact__heading">Contact</h2>
 
         <p className="contact__invitation">
-          Basant is open to backend engineering opportunities that involve scalable systems,
+          I am open to backend engineering opportunities that involve scalable systems,
           distributed architecture, cloud infrastructure, machine learning integration, and
           thoughtful engineering culture. If you would like to collaborate, discuss a role,
-          or review one of the projects in this archive, reach out.
+          or review one of the projects in this archive, please reach out.
         </p>
 
         {/* Final bloom */}

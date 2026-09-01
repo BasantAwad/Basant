@@ -1,137 +1,171 @@
-/* About Section */
+/* ─── About Section ─────────────────────────────────────────────────────────── */
 
 .about {
   position: relative;
   padding: var(--space-20) 0 var(--space-16);
-  background: rgba(10, 14, 18, 0.5);
-  overflow: visible;
+  /* Subtle section divider — slightly different background from hero */
+  background:
+    linear-gradient(to bottom, rgba(10, 14, 18, 0.0) 0%, rgba(10, 14, 18, 0.6) 8%, rgba(10, 14, 18, 0.6) 92%, rgba(10, 14, 18, 0.0) 100%);
 }
 
 .about__inner {
   position: relative;
-  z-index: 1;
-  max-width: 880px;
+  z-index: 2;
+  max-width: 900px;
   margin-inline: auto;
   padding: 0 var(--gutter);
 }
 
+/* Eyebrow / label area */
 .about__heading {
-  text-align: center;
-  margin-bottom: var(--space-8);
-}
-
-.about__eyebrow {
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-sage);
-  margin-bottom: var(--space-3);
-}
-
-.about__headline {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 300;
-  letter-spacing: -0.01em;
-  line-height: 1.12;
-  color: var(--color-ivory);
-  max-width: 60ch;
-  margin-inline: auto;
-}
-
-.about__deck {
-  margin-top: var(--space-6);
-  font-size: 1.02rem;
-  line-height: 1.75;
-  color: var(--color-ivory-dim);
   text-align: center;
-  max-width: 62ch;
-  margin-inline: auto;
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-10);
+  color: var(--color-ivory);
 }
 
-/* Skeleton */
-.about__skeleton {
-  margin-top: var(--space-12);
+/* ─── Two-column grid ──────────────────────────────────────────────────────── */
+.about__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-6) var(--space-10);
+  gap: var(--space-10);
+  align-items: start;
 }
 
-.about__skeleton-item {
-  background: rgba(10, 14, 18, 0.45);
-  border: 1px solid rgba(26, 35, 32, 0.4);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
+@media (max-width: 720px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-.about__skeleton-label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-bottom: var(--space-2);
-  font-size: 0.65rem;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-fuchsia);
+/* ─── Copy side ─────────────────────────────────────────────────────────────── */
+.about__copy { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.about__lede {
+  font-size: 1.12rem;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--color-ivory);
+  font-style: italic;
 }
 
-.about__skeleton-count {
-  font-size: 0.55rem;
-  color: var(--color-ivory-faint);
-  margin-left: auto;
+.about__copy p {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--color-ivory-dim);
+  max-width: 100%;
 }
 
-.about__skeleton-body {
-  font-size: 0.88rem;
+.about__quote {
+  border-left: 2px solid var(--color-fuchsia);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-2) 0;
+  background: rgba(42, 26, 36, 0.18);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
   line-height: 1.65;
   color: var(--color-ivory-dim);
 }
 
-.about__skeleton-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  background: rgba(42, 26, 36, 0.35);
-  border-radius: var(--radius-xl);
-  padding: var(--space-1) var(--space-3);
-  font-size: 0.55rem;
+.about__interest-heading {
   font-family: var(--font-sans);
+  font-size: 0.62rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-ivory-dim);
-}
-
-/* Opening paragraph */
-.about__opening {
-  margin-top: var(--space-10);
-  padding: var(--space-6) var(--gutter);
-  background: rgba(10, 14, 18, 0.4);
-  border-left: 2px solid var(--color-fuchsia);
-  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-}
-
-.about__opening-lead {
-  font-size: 0.65rem;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-sage);
-  margin-bottom: var(--space-3);
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
-.about__opening-text {
-  font-size: 0.95rem;
-  line-height: 1.75;
+.about__interests {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.about__interest {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 0.88rem;
+  color: var(--color-ivory-dim);
+  line-height: 1.4;
+}
+
+.about__interest-mark {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-fuchsia);
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* ─── Sidebar / field cards ─────────────────────────────────────────────────── */
+.about__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field-card {
+  background: rgba(10, 14, 18, 0.65);
+  border: 1px solid rgba(26, 35, 32, 0.55);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  transition: border-color 300ms var(--ease-out), background-color 300ms var(--ease-out), transform 260ms var(--ease-out);
+}
+
+.field-card:hover {
+  border-color: rgba(106, 42, 64, 0.45);
+  background: rgba(14, 20, 24, 0.75);
+  transform: translateY(-2px);
+}
+
+.field-card .specimen-number {
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--color-fuchsia);
+  font-style: normal;
+  font-size: 0.7rem;
+}
+
+.field-card__title {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--color-ivory);
-  max-width: 66ch;
+  margin-bottom: var(--space-2);
 }
 
-@media (max-width: 720px) {
-  .about__skeleton {
-    grid-template-columns: 1fr;
-  }
+.field-card__body {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--color-ivory-dim);
+  margin-bottom: var(--space-3);
+  max-width: 100%;
+}
+
+.field-card--specimen {
+  border-color: rgba(106, 42, 64, 0.3);
+  background: rgba(42, 26, 36, 0.2);
+}
+
+/* ─── Footer meta ───────────────────────────────────────────────────────────── */
+.about__footer-meta {
+  margin-top: var(--space-10);
+  padding-top: var(--space-5);
+  border-top: 1px solid rgba(26, 35, 32, 0.3);
+  text-align: center;
 }

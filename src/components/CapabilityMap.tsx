@@ -85,16 +85,11 @@ export const CapabilityMap: React.FC = () => {
   return (
     <section id="capabilities" className="capabilities">
       <div className="capabilities__header container--narrow">
-        <span className="specimen-label">Field annotation · Section V</span>
-        <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
-          Leaves · technical skills and tools
-        </span>
 
         <h2 className="capabilities__heading">Technical capabilities</h2>
         <p className="capabilities__intro">
-          A capability map organized as botanical clusters — languages, backend, databases,
-          messaging, cloud infrastructure, AI, and methodologies. Categories are shown only;
-          no proficiency ratings are claimed because they are not part of the source record.
+          A capability map of technical skills — languages, backend, databases,
+          messaging, cloud infrastructure, AI, and methodologies.
         </p>
       </div>
 
@@ -114,12 +109,7 @@ export const CapabilityMap: React.FC = () => {
         })}
       </div>
 
-      <div className="capabilities__footer">
-        <span className="specimen-label">Capability record · BA-CAP-2026</span>
-        <span className="coordinates" style={{ display: 'block', marginTop: '0.25rem' }}>
-          Categories only · no proficiency levels claimed
-        </span>
-      </div>
+
     </section>
   );
 };
