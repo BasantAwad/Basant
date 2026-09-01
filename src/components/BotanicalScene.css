@@ -27,6 +27,7 @@
   transform: var(--pre-transform);
   transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
   will-change: transform, opacity;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6)) brightness(0.8) contrast(1.1) saturate(0.85);
 }
 
 .botanical-canopy__flower.botanical-img--visible {
@@ -43,6 +44,7 @@
   transform: var(--pre-transform);
   transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
   will-change: transform, opacity;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6)) brightness(0.8) contrast(1.1) saturate(0.85);
   z-index: 3;
 }
 
@@ -58,4 +60,11 @@
   opacity: var(--bloom-opacity);
   transform: var(--final-transform);
   transition-delay: var(--bloom-delay);
+}
+
+@media (max-width: 768px) {
+  .botanical-canopy__flower,
+  .botanical-edge {
+    filter: none;
+  }
 }

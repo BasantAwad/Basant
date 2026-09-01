@@ -64,8 +64,8 @@ function generateBouquet(yPct: number) {
   ];
 }
 
-const LEFT_FLOWERS = Array.from({ length: 6 }, (_, i) => (i + 1) * 15).flatMap(yPct => generateBouquet(yPct));
-const RIGHT_FLOWERS = Array.from({ length: 6 }, (_, i) => (i + 1) * 15).flatMap(yPct => generateBouquet(yPct));
+const LEFT_FLOWERS = Array.from({ length: 19 }, (_, i) => (i + 1) * 5).flatMap(yPct => generateBouquet(yPct));
+const RIGHT_FLOWERS = Array.from({ length: 19 }, (_, i) => (i + 1) * 5).flatMap(yPct => generateBouquet(yPct));
 
 // ─── Hook: trigger bloom when element scrolls into view ─────────────────────
 function useScrollBloom(containerRef: React.RefObject<HTMLDivElement | null>) {
