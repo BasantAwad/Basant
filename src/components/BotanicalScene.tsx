@@ -42,6 +42,14 @@ const CANOPY_FLOWERS = [
   { src: 'flowers/processed/138813-blossom-real-flower-hq-image-free.png', x: 750, y: 120, rot: 225, size: 340, side: 'right' }, // Flipped (+180)
 ];
 
+const CANOPY_FLOWERS_MOBILE = [
+  // A much smaller, lighter canopy specifically for mobile
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: -20, y: 140, rot: 15, size: 280, side: 'left' },
+  { src: 'flowers/processed/baroque-bouquet-beautiful-garden-flowers-leaves-black-background-luxurious-pink-white-peonies-roses-tulips-luxury-design-172318794.png', x: 120, y: 120,  rot: -25, size: 250, side: 'left' },
+  { src: 'flowers/processed/138813-blossom-real-flower-hq-image-free.png', x: 220, y: 140, rot: 200, size: 280, side: 'right' }, // Flipped (+180)
+  { src: 'flowers/processed/floral-illustration_53876-91239.png',          x: 20, y: 160, rot: -20, size: 300, side: 'right' },
+];
+
 // Helper to generate a clustered bouquet at a specific Y percentage
 // Base rotation of +90 degrees makes the bottom of the flower face left and the top face right.
 // For the left wall, this means the bottom touches the wall, and the bloom points inwards.
@@ -88,23 +96,20 @@ function useScrollBloom(containerRef: React.RefObject<HTMLDivElement | null>) {
 
 export const BotanicalScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = React.useState(false);
+  
+  // Synchronous check to prevent heavy nodes from ever rendering on mobile load
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  const currentCanopy = isMobile ? CANOPY_FLOWERS_MOBILE : CANOPY_FLOWERS;
 
   useScrollBloom(containerRef);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   return (
     <div className="botanical-scene" ref={containerRef} aria-hidden="true">
       
       {/* Top Canopy */}
       <div className="botanical-canopy">
-        {CANOPY_FLOWERS.map((fl, i) => (
+        {currentCanopy.map((fl, i) => (
           <img
             key={`canopy-${i}`}
             src={fl.src}
