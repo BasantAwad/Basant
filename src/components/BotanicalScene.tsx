@@ -10,44 +10,44 @@ import './BotanicalScene.css';
 // New collection of flowers (No single leaves/stems)
 const CANOPY_FLOWERS = [
   // Top left massive cluster
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 80, y: 140, rot: 15, size: 260, side: 'left' },
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 200, y: 160,  rot: -25, size: 230, side: 'left' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png',         x: 80,  y: 300, rot: 10,  size: 200, side: 'left' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 250, y: 300, rot: 215, size: 210, side: 'left' }, // Flipped (+180)
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 80, y: 140, rot: 15, size: 360, side: 'left' },
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 200, y: 160,  rot: -25, size: 315, side: 'left' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png',         x: 80,  y: 300, rot: 10,  size: 270, side: 'left' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 250, y: 300, rot: 215, size: 288, side: 'left' }, // Flipped (+180)
   
   // Top middle-left dense fill
-  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 400, y: 150, rot: 205, size: 250, side: 'left' }, // Flipped (+180)
-  { src: 'flowers/processed/floral-illustration_53876-91239.png',          x: 550, y: 180, rot: -10, size: 230, side: 'left' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png',                  x: 450, y: 280, rot: -15, size: 180, side: 'left' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 400, y: 150, rot: 205, size: 342, side: 'left' }, // Flipped (+180)
+  { src: 'flowers/processed/floral-illustration_53876-91239.png',          x: 550, y: 180, rot: -10, size: 315, side: 'left' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png',                  x: 450, y: 280, rot: -15, size: 252, side: 'left' },
   
   // Top Center dense fill (Moved up to fill the empty space and increased size)
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 750, y: 40, rot: -5, size: 360, side: 'left' },
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 750, y: 40, rot: -5, size: 495, side: 'left' },
   
   // Top middle-right dense fill
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 850, y: 160, rot: -45, size: 240, side: 'left' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png',         x: 1000, y: 140,  rot: -15, size: 210, side: 'left' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 900, y: 280, rot: 200, size: 200, side: 'left' }, // Flipped (+180)
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 850, y: 160, rot: -45, size: 324, side: 'left' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png',         x: 1000, y: 140,  rot: -15, size: 288, side: 'left' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 900, y: 280, rot: 200, size: 270, side: 'left' }, // Flipped (+180)
   
   // Top right massive cluster
-  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 280, y: 160, rot: 200, size: 250, side: 'right' }, // Flipped (+180)
-  { src: 'flowers/processed/floral-illustration_53876-91239.png',          x: 120, y: 180, rot: -20, size: 300, side: 'right' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png',                  x: 60,  y: 320, rot: -30, size: 200, side: 'right' },
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 200, y: 300, rot: 15, size: 230, side: 'right' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 280, y: 160, rot: 200, size: 342, side: 'right' }, // Flipped (+180)
+  { src: 'flowers/processed/floral-illustration_53876-91239.png',          x: 120, y: 180, rot: -20, size: 405, side: 'right' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png',                  x: 60,  y: 320, rot: -30, size: 270, side: 'right' },
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 200, y: 300, rot: 15, size: 315, side: 'right' },
   
   // Fill the circled gap on the right side (2 moved to left side for balance)
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 300, y: 450, rot: -15, size: 260, side: 'left' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 500, y: 400, rot: 210, size: 250, side: 'left' }, // Flipped (+180)
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 400, y: 330, rot: 10, size: 240, side: 'right' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 550, y: 280, rot: -20, size: 200, side: 'right' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 750, y: 120, rot: 225, size: 220, side: 'right' }, // Flipped (+180)
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 300, y: 450, rot: -15, size: 360, side: 'left' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 500, y: 400, rot: 210, size: 342, side: 'left' }, // Flipped (+180)
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 400, y: 330, rot: 10, size: 324, side: 'right' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 550, y: 280, rot: -20, size: 270, side: 'right' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 750, y: 120, rot: 225, size: 306, side: 'right' }, // Flipped (+180)
 ];
 
 const CANOPY_FLOWERS_MOBILE = [
   // A much smaller, lighter canopy specifically for mobile
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: -20, y: 140, rot: 15, size: 200, side: 'left' },
-  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 120, y: 120,  rot: -25, size: 180, side: 'left' },
-  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 220, y: 140, rot: 200, size: 200, side: 'right' }, // Flipped (+180)
-  { src: 'flowers/processed/floral-illustration_53876-91239.png',          x: 20, y: 160, rot: -20, size: 210, side: 'right' },
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: -20, y: 140, rot: 15, size: 252, side: 'left' },
+  { src: 'flowers/processed/floral-illustration_53876-91239.png', x: 120, y: 120,  rot: -25, size: 225, side: 'left' },
+  { src: 'flowers/processed/roses-bloom_53876-89175.png', x: 220, y: 140, rot: 200, size: 252, side: 'right' }, // Flipped (+180)
+  { src: 'flowers/processed/floral-illustration_53876-91239.png',          x: 20, y: 160, rot: -20, size: 270, side: 'right' },
 ];
 
 // Helper to generate a clustered bouquet at a specific Y percentage
@@ -57,10 +57,10 @@ const CANOPY_FLOWERS_MOBILE = [
 function generateBouquet(yPct: number) {
   const baseRot = 90; 
   return [
-    { src: 'flowers/processed/floral-illustration_53876-91239.png', y: yPct, offsetX: -60, rot: baseRot + 15, size: 250 },
-    { src: 'flowers/processed/floral-illustration_53876-91239.png', y: yPct - 2.5, offsetX: -20, rot: baseRot - 20, size: 230 },
-    { src: 'flowers/processed/roses-bloom_53876-89175.png', y: yPct + 3, offsetX: -30, rot: baseRot + 10, size: 240 },
-    { src: 'flowers/processed/roses-bloom_53876-89175.png', y: yPct + 1, offsetX: 80, rot: baseRot - 5, size: 180 }, // Sticks out further
+    { src: 'flowers/processed/floral-illustration_53876-91239.png', y: yPct, offsetX: -60, rot: baseRot + 15, size: 342 },
+    { src: 'flowers/processed/floral-illustration_53876-91239.png', y: yPct - 2.5, offsetX: -20, rot: baseRot - 20, size: 315 },
+    { src: 'flowers/processed/roses-bloom_53876-89175.png', y: yPct + 3, offsetX: -30, rot: baseRot + 10, size: 324 },
+    { src: 'flowers/processed/roses-bloom_53876-89175.png', y: yPct + 1, offsetX: 80, rot: baseRot - 5, size: 252 }, // Sticks out further
   ];
 }
 
