@@ -171,10 +171,10 @@ export const NewsSection: React.FC = () => {
                   <img 
                     src={
                       !isCenter 
-                        ? '/flowers/blooming_static.png' 
+                        ? `${import.meta.env.BASE_URL}flowers/blooming_static.png` 
                         : isAnimating 
-                          ? `/flowers/blooming.gif?t=${animKey}` 
-                          : '/flowers/blooming_fully.png'
+                          ? `${import.meta.env.BASE_URL}flowers/blooming.gif?t=${animKey}` 
+                          : `${import.meta.env.BASE_URL}flowers/blooming_fully.png`
                     } 
                     alt="Blooming flower" 
                     className="news-fan-card__flower"
