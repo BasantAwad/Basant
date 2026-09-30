@@ -88,8 +88,8 @@ export const CapabilityMap: React.FC = () => {
 
         <h2 className="capabilities__heading">Technical capabilities</h2>
         <p className="capabilities__intro">
-          A capability map of technical skills — languages, backend, databases,
-          messaging, cloud infrastructure, AI, and methodologies.
+          Everything I work with — languages, frameworks, AI tools, cloud platforms,
+          hardware, and the design principles that tie it all together.
         </p>
       </div>
 

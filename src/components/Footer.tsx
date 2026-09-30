@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
 
 
         <p className="site-footer__meta">
-          Backend Software Engineer · Alexandria, Egypt · Open to relocation
+          Software Engineer · Alexandria, Egypt · Open to relocation
         </p>
 
         <div className="site-footer__links">
@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <p className="site-footer__legal">
-          A personal portfolio. All content reflects verified CV information as of 2026.
+          © {new Date().getFullYear()} Basant Awad Mohamed. Built with care.
         </p>
       </div>
     </footer>

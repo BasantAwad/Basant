@@ -20,7 +20,7 @@ export const githubRepos = [
 ];
 
 export const githubLaboratory = {
-  intro: 'An active laboratory containing experiments, coursework, prototypes, and engineering projects. The repositories below are publicly visible on GitHub; the strongest projects also appear as case studies elsewhere in this portfolio.',
+  intro: 'My GitHub is where I build, experiment, and ship. From distributed systems to AI pipelines to hardware prototypes — everything here is code I\'ve actually written.',
   anchor: 0.80,
   totalRepos: githubRepos.length,
 };

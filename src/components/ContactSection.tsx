@@ -12,10 +12,9 @@ export const ContactSection: React.FC = () => {
         <h2 className="contact__heading">Contact</h2>
 
         <p className="contact__invitation">
-          I am open to backend engineering opportunities that involve scalable systems,
-          distributed architecture, cloud infrastructure, machine learning integration, and
-          thoughtful engineering culture. If you would like to collaborate, discuss a role,
-          or review one of the projects in this archive, please reach out.
+          I'm open to software engineering opportunities — backend, full-stack, AI/ML, or anything
+          that needs building. I pick up new stacks fast, I care about clean architecture, and I
+          ship. If you'd like to collaborate, discuss a role, or just talk about a project — reach out.
         </p>
 
         {/* Final bloom */}
@@ -27,7 +26,7 @@ export const ContactSection: React.FC = () => {
         <div className="contact__card">
           <div className="contact__identity">
             <span className="contact__name">{personal.name}</span>
-            <span className="contact__title">Backend Software Engineer</span>
+            <span className="contact__title">Software Engineer</span>
             <span className="coordinates">{personal.location} · {personal.availability}</span>
           </div>
 
@@ -100,10 +99,27 @@ export const ContactSection: React.FC = () => {
               {personal.phone}
             </a>
           </div>
+
+          <div className="contact__cv-download">
+            <a
+              href={personal.cvUrl}
+              className="btn btn--primary"
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+            >
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Download CV
+            </a>
+          </div>
         </div>
 
         <p className="contact__closing">
-          A brief message is always welcome. Every good system starts with a clear signal.
+          A brief message is always welcome. Let's build something.
         </p>
       </div>
     </section>

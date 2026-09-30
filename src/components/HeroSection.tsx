@@ -14,7 +14,7 @@ export const HeroSection: React.FC = () => {
 
         <div className="hero__identity">
           <p className="hero__title-lead">
-            Backend Software Engineer
+            Software Engineer
           </p>
           <h1 className="hero__name">
             {personal.name}
@@ -25,9 +25,9 @@ export const HeroSection: React.FC = () => {
         </div>
 
         <p className="hero__intro">
-          I am a backend engineer working across scalable architectures, AI-integrated products,
-          distributed systems, and cloud infrastructure — with the patience of someone who
-          understands that good systems grow slowly, from strong foundations.
+          I build across the full stack — backend systems, AI-powered products, mobile apps,
+          and hardware prototypes. I specialize in backend architecture, but I'm flexible with
+          any technology. If it needs to be built, I'll figure it out and ship it.
         </p>
 
         <div className="hero__meta-row">
@@ -47,6 +47,20 @@ export const HeroSection: React.FC = () => {
           </a>
           <a href="#contact" className="btn btn--ghost">
             Connect with me
+          </a>
+          <a
+            href={personal.cvUrl}
+            className="btn btn--ghost"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download CV
           </a>
         </div>
 

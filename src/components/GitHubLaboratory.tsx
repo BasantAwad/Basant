@@ -75,10 +75,7 @@ export const GitHubLaboratory: React.FC = () => {
             ))}
           </div>
 
-          {/* Additional note for Glow */}
-          <p className="github-lab__note">
-            {'Glow'} is included as an additional GitHub project; its description is pending confirmation.
-          </p>
+
         </div>
       </div>
 
